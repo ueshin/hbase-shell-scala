@@ -1,0 +1,146 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>st.happy_camper.hadoop</groupId>
+		<artifactId>hadoop-client-scala</artifactId>
+		<version>cdh3u1-4</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>st.happy_camper.hbase</groupId>
+	<artifactId>hbase-shell-scala</artifactId>
+	<packaging>jar</packaging>
+	<name>hbase-shell-scala</name>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<inceptionYear>2011</inceptionYear>
+	<url>http://ueshin.github.com/hbase-shell-scala</url>
+	<description>HBase shell in Scala</description>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name>Happy-Camper Street</name>
+		<url>http://happy-camper.st/</url>
+	</organization>
+	<developers>
+		<developer>
+			<id>ueshin</id>
+			<name>Takuya Ueshin</name>
+			<email>ueshin@happy-camper.st</email>
+			<url>http://ueshin.happy-camper.st/</url>
+			<organization>Happy-Camper Street</organization>
+			<timezone>+9</timezone>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git://github.com/ueshin/hbase-shell-scala.git</connection>
+		<developerConnection>scm:git@github.com:ueshin/hbase-shell-scala.git</developerConnection>
+		<url>https://github.com/ueshin/hbase-shell-scala</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>http://github.com/ueshin/hbase-shell-scala/issues</url>
+	</issueManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>assemble</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<binFileExtensions>
+						<unix>.sh</unix>
+					</binFileExtensions>
+					<extraJvmArguments>-server -Dscala.usejavacp=true</extraJvmArguments>
+					<configurationDirectory>conf</configurationDirectory>
+					<copyConfigurationDirectory>true</copyConfigurationDirectory>
+					<repositoryLayout>flat</repositoryLayout>
+					<repositoryName>lib</repositoryName>
+					<platforms>
+						<platform>unix</platform>
+					</platforms>
+					<programs>
+						<program>
+							<mainClass>scala.tools.nsc.MainGenericRunner</mainClass>
+							<name>shbase</name>
+						</program>
+					</programs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-compiler</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>jline</artifactId>
+			<version>${scala.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.fusesource.jansi</groupId>
+					<artifactId>jansi</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>hadoop-client-releases</id>
+			<name>hadoop-client releases</name>
+			<url>http://ueshin.github.com/hadoop-client/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>hbase-shell-scala-releases</id>
+			<url>http://ueshin.github.com/hbase-shell-scala/releases</url>
+			<uniqueVersion>false</uniqueVersion>
+		</repository>
+		<snapshotRepository>
+			<id>hbase-shell-scala-snapshots</id>
+			<url>http://ueshin.github.com/hbase-shell-scala/snapshots</url>
+			<uniqueVersion>true</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>

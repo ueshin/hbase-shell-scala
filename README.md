@@ -1,0 +1,2 @@
+HBase shell in Scala
+====================
