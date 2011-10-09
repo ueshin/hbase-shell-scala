@@ -48,6 +48,10 @@
 		<url>http://github.com/ueshin/hbase-shell-scala/issues</url>
 	</issueManagement>
 
+	<properties>
+		<assembleDirectory>${project.build.directory}/appassembler</assembleDirectory>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -71,9 +75,6 @@
 					</execution>
 				</executions>
 				<configuration>
-					<binFileExtensions>
-						<unix>.sh</unix>
-					</binFileExtensions>
 					<extraJvmArguments>-server -Dscala.usejavacp=true</extraJvmArguments>
 					<configurationDirectory>conf</configurationDirectory>
 					<copyConfigurationDirectory>true</copyConfigurationDirectory>
@@ -85,10 +86,30 @@
 					<programs>
 						<program>
 							<mainClass>scala.tools.nsc.MainGenericRunner</mainClass>
-							<name>shbase</name>
+							<name>repl</name>
 						</program>
 					</programs>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<copy file="${project.build.scriptSourceDirectory}/shbase"
+									todir="${assembleDirectory}/bin" />
+								<copy file="${project.build.sourceDirectory}/shbase.scala"
+									todir="${assembleDirectory}/bin" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
