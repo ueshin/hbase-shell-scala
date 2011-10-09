@@ -21,7 +21,7 @@ import org.apache.hadoop.hbase.HBaseConfiguration
 /**
  * @author ueshin
  */
-package object shell {
+package object shell extends client.HBaseAdmin {
 
   val conf = HBaseConfiguration.create
   val admin = new HBaseAdmin(conf)
