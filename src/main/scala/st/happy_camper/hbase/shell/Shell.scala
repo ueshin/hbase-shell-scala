@@ -13,11 +13,15 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package st.happy_camper.hbase
+package st.happy_camper.hbase.shell
 
-import org.apache.hadoop.hbase.HBaseConfiguration
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.hbase.client.HBaseAdmin
 
 /**
  * @author ueshin
  */
-package object shell extends Shell(HBaseConfiguration.create)
+class Shell(val conf: Configuration) extends client.HBaseAdmin {
+
+  val admin = new HBaseAdmin(conf)
+}

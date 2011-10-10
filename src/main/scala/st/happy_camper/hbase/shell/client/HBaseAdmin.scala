@@ -13,15 +13,20 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package st.happy_camper.hbase.shell
-package client
+package st.happy_camper.hbase.shell.client
 
 import org.apache.hadoop.hbase
+import org.apache.hadoop.hbase.client
+
+import st.happy_camper.hbase.shell.ColumnAttribute
+import st.happy_camper.hbase.shell.HTableDescriptor
 
 /**
  * @author ueshin
  */
 trait HBaseAdmin {
+
+  val admin: client.HBaseAdmin
 
   /**
    *
