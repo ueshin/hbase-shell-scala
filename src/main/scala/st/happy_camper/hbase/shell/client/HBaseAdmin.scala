@@ -18,6 +18,7 @@ package st.happy_camper.hbase.shell.client
 import org.apache.hadoop.hbase
 import org.apache.hadoop.hbase.client
 
+import st.happy_camper.hbase.shell.util.Bytes.toBytes
 import st.happy_camper.hbase.shell.ColumnAttribute
 import st.happy_camper.hbase.shell.HTableDescriptor
 
@@ -39,6 +40,18 @@ trait HBaseAdmin {
     }
     println(tables.size + " row(s) in " + (System.currentTimeMillis - s) + " milliseconds.")
     tables.toSeq
+  }
+
+  /**
+   * @param tablename
+   * @return
+   */
+  def describe(tablename: String) = {
+    val s = System.currentTimeMillis
+    val table = admin.getTableDescriptor(tablename)
+    println(table.toString)
+    println("1 row in " + (System.currentTimeMillis - s) + " milliseconds.")
+    table
   }
 
   /**
