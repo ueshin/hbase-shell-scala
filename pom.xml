@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>st.happy_camper.hadoop</groupId>
 		<artifactId>hadoop-client-scala</artifactId>
-		<version>cdh3u1-4</version>
+		<version>cdh3u1-5.1</version>
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
@@ -40,7 +40,7 @@
 	</developers>
 	<scm>
 		<connection>scm:git://github.com/ueshin/hbase-shell-scala.git</connection>
-		<developerConnection>scm:git@github.com:ueshin/hbase-shell-scala.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:ueshin/hbase-shell-scala.git</developerConnection>
 		<url>https://github.com/ueshin/hbase-shell-scala</url>
 	</scm>
 	<issueManagement>
@@ -122,18 +122,21 @@
 		<dependency>
 			<groupId>org.scala-lang</groupId>
 			<artifactId>scala-compiler</artifactId>
-			<version>${scala.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.scala-lang</groupId>
 			<artifactId>jline</artifactId>
-			<version>${scala.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.fusesource.jansi</groupId>
 					<artifactId>jansi</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase</artifactId>
+			<classifier>tests</classifier>
 		</dependency>
 	</dependencies>
 
