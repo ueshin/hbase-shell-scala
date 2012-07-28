@@ -17,76 +17,71 @@ package st.happy_camper.hbase.shell
 
 import org.apache.hadoop.hbase.HBaseTestingUtility
 import org.junit.runner.RunWith
-import org.scalatest.BeforeAndAfterAll
-import org.scalatest.BeforeAndAfterEach
-import org.scalatest.Spec
-import org.scalatest.junit.JUnitRunner
+import org.specs2.mutable.{ Specification, BeforeAfter }
+import org.specs2.runner.JUnitRunner
 
-import util.Bytes.toBytes
+import st.happy_camper.hbase.shell.util.Bytes.toBytes
 
 /**
  * @author ueshin
  *
  */
 @RunWith(classOf[JUnitRunner])
-class ShellSpecTest extends Spec with BeforeAndAfterAll with BeforeAndAfterEach {
+object ShellSpecTest extends ShellSpec
 
-  val testingUtility = new HBaseTestingUtility()
+class ShellSpec extends Specification {
 
-  override def beforeAll {
-    testingUtility.startMiniCluster
-  }
+  "Shell" should {
 
-  override def afterAll {
-    testingUtility.shutdownMiniCluster
-  }
+    trait Context extends BeforeAfter {
 
-  override def beforeEach {
-    testingUtility.createTable("test", "family")
-  }
+      val testingUtility = new HBaseTestingUtility()
 
-  override def afterEach {
-    testingUtility.getHBaseAdmin.listTables.foreach { table =>
-      testingUtility.deleteTable(table.getName())
+      def before = {
+        testingUtility.startMiniCluster
+        testingUtility.createTable("test", "family")
+      }
+
+      def after = {
+        testingUtility.shutdownMiniCluster
+      }
     }
-  }
 
-  describe("Shell") {
-
-    it("should list tables") {
+    "list tables" in new Context {
       val shell = new Shell(testingUtility.getConfiguration())
       val tables = shell.list
-      assert(tables.size == 1)
-      assert(tables(0).getNameAsString() == "test")
+      tables.size must equalTo(1)
+      tables(0).getNameAsString() must equalTo("test")
     }
 
-    it("should describe table") {
+    "describe table" in new Context {
       val shell = new Shell(testingUtility.getConfiguration())
       val table = shell.describe("test")
-      assert(table.getNameAsString() == "test")
+      table.getNameAsString() must equalTo("test")
     }
 
-    it("should create table") {
+    "create table" in new Context {
       val shell = new Shell(testingUtility.getConfiguration())
       shell.create("test1", "family")
-      assert(testingUtility.getHBaseAdmin().tableExists("test1"))
+      testingUtility.getHBaseAdmin().tableExists("test1") must beTrue
     }
 
-    it("should create table with ColumnAttribute") {
+    "create table with ColumnAttribute" in new Context {
       val shell = new Shell(testingUtility.getConfiguration())
       val table = shell.create("test1", "family" -> (BlockCache(false) :: BlockSize(1) ::
         BloomFilter(BloomType.ROWCOL) :: Compression(CompressionType.GZ) :: InMemory(true) ::
         ReplicationScope(1) :: TTL(10) :: Versions(5) :: Nil))
-      assert(testingUtility.getHBaseAdmin().tableExists("test1"))
+      testingUtility.getHBaseAdmin().tableExists("test1") must beTrue
+
       val family = table.getFamily("family")
-      assert(!family.isBlockCacheEnabled())
-      assert(family.getBlocksize() == 1)
-      assert(family.getBloomFilterType() == BloomType.ROWCOL)
-      assert(family.getCompressionType() == CompressionType.GZ)
-      assert(family.isInMemory())
-      assert(family.getScope() == 1)
-      assert(family.getTimeToLive() == 10)
-      assert(family.getMaxVersions() == 5)
+      family.isBlockCacheEnabled() must beFalse
+      family.getBlocksize() must equalTo(1)
+      family.getBloomFilterType() must equalTo(BloomType.ROWCOL)
+      family.getCompressionType() must equalTo(CompressionType.GZ)
+      family.isInMemory() must beTrue
+      family.getScope() must equalTo(1)
+      family.getTimeToLive() must equalTo(10)
+      family.getMaxVersions() must equalTo(5)
     }
   }
 }
