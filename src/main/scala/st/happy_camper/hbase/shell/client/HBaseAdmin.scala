@@ -13,26 +13,25 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package st.happy_camper.hbase.shell.client
+package st.happy_camper.hbase.shell
+package client
 
-import org.apache.hadoop.hbase
-import org.apache.hadoop.hbase.client
+import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor, HColumnDescriptor => AHColumnDescriptor }
+import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
 
-import st.happy_camper.hbase.shell.util.Bytes.toBytes
-import st.happy_camper.hbase.shell.ColumnAttribute
-import st.happy_camper.hbase.shell.HTableDescriptor
+import st.happy_camper.hbase.shell.{ HTableDescriptor, ColumnAttribute }
 
 /**
  * @author ueshin
  */
 trait HBaseAdmin {
 
-  val admin: client.HBaseAdmin
+  val admin: AHBaseAdmin
 
   /**
    *
    */
-  def list: Seq[hbase.HTableDescriptor] = {
+  def list: Seq[AHTableDescriptor] = {
     val s = System.currentTimeMillis
     val tables = admin.listTables
     tables.foreach { table =>
@@ -62,7 +61,7 @@ trait HBaseAdmin {
    */
   def create(tablename: String,
              familyName: String,
-             familyNames: String*): hbase.HTableDescriptor = {
+             familyNames: String*): AHTableDescriptor = {
     create(HTableDescriptor(tablename, familyName, familyNames: _*))
   }
 
@@ -74,7 +73,7 @@ trait HBaseAdmin {
    */
   def create[A <: ColumnAttribute](tablename: String,
                                    family: (String, Seq[A]),
-                                   families: (String, Seq[A])*): hbase.HTableDescriptor = {
+                                   families: (String, Seq[A])*): AHTableDescriptor = {
     create(HTableDescriptor(tablename, family, families: _*))
   }
 
@@ -85,8 +84,8 @@ trait HBaseAdmin {
    * @return
    */
   def create(tablename: String,
-             columnDescriptor: hbase.HColumnDescriptor,
-             columnDescriptors: hbase.HColumnDescriptor*): hbase.HTableDescriptor = {
+             columnDescriptor: AHColumnDescriptor,
+             columnDescriptors: AHColumnDescriptor*): AHTableDescriptor = {
     create(HTableDescriptor(tablename, columnDescriptor, columnDescriptors: _*))
   }
 
@@ -94,7 +93,7 @@ trait HBaseAdmin {
    * @param tableDescriptor
    * @return
    */
-  def create(tableDescriptor: hbase.HTableDescriptor): hbase.HTableDescriptor = {
+  def create(tableDescriptor: AHTableDescriptor): AHTableDescriptor = {
     create(tableDescriptor, null)
   }
 
@@ -103,8 +102,8 @@ trait HBaseAdmin {
    * @param splitKeys
    * @return
    */
-  def create(tableDescriptor: hbase.HTableDescriptor,
-             splitKeys: Array[Array[Byte]]): hbase.HTableDescriptor = {
+  def create(tableDescriptor: AHTableDescriptor,
+             splitKeys: Array[Array[Byte]]): AHTableDescriptor = {
     val s = System.currentTimeMillis
     admin.createTable(tableDescriptor, splitKeys)
     println("created in " + (System.currentTimeMillis - s) + " milliseconds.")
@@ -118,10 +117,10 @@ trait HBaseAdmin {
    * @param numRegions
    * @return
    */
-  def create(tableDescriptor: hbase.HTableDescriptor,
+  def create(tableDescriptor: AHTableDescriptor,
              startKey: Array[Byte],
              endKey: Array[Byte],
-             numRegions: Int): hbase.HTableDescriptor = {
+             numRegions: Int): AHTableDescriptor = {
     val s = System.currentTimeMillis
     admin.createTable(tableDescriptor, startKey, endKey, numRegions)
     println("created in " + (System.currentTimeMillis - s) + " milliseconds.")
@@ -133,8 +132,8 @@ trait HBaseAdmin {
    * @param splitKeys
    * @return
    */
-  def createAsync(tableDescriptor: hbase.HTableDescriptor,
-                  splitKeys: Array[Array[Byte]]): hbase.HTableDescriptor = {
+  def createAsync(tableDescriptor: AHTableDescriptor,
+                  splitKeys: Array[Array[Byte]]): AHTableDescriptor = {
     val s = System.currentTimeMillis
     admin.createTableAsync(tableDescriptor, splitKeys)
     println("created in " + (System.currentTimeMillis - s) + " milliseconds.")

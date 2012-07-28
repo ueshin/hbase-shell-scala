@@ -16,12 +16,20 @@
 package st.happy_camper.hbase.shell
 
 import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.hbase.client.HBaseAdmin
+import org.apache.hadoop.hbase.HBaseConfiguration
+import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
+
+import st.happy_camper.hbase.shell.client.HBaseAdmin
 
 /**
  * @author ueshin
  */
-class Shell(val conf: Configuration) extends client.HBaseAdmin {
+class Shell(val conf: Configuration) extends HBaseAdmin {
 
-  val admin = new HBaseAdmin(conf)
+  val admin = new AHBaseAdmin(conf)
 }
+
+/**
+ * @author ueshin
+ */
+object Shell extends Shell(HBaseConfiguration.create)

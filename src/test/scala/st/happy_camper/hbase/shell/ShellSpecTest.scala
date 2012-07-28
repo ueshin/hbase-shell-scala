@@ -20,8 +20,6 @@ import org.junit.runner.RunWith
 import org.specs2.mutable.{ Specification, BeforeAfter }
 import org.specs2.runner.JUnitRunner
 
-import st.happy_camper.hbase.shell.util.Bytes.toBytes
-
 /**
  * @author ueshin
  *

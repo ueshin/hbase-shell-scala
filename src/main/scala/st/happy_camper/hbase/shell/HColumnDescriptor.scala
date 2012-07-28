@@ -15,9 +15,9 @@
  */
 package st.happy_camper.hbase.shell
 
+import org.apache.hadoop.hbase.{ HColumnDescriptor => AHColumnDescriptor }
 import org.apache.hadoop.hbase.io.hfile.Compression.Algorithm
 import org.apache.hadoop.hbase.regionserver.StoreFile
-import org.apache.hadoop.hbase
 
 /**
  * @author ueshin
@@ -57,8 +57,8 @@ object HColumnDescriptor {
    * @param descriptor
    * @return
    */
-  def apply[A <: ColumnAttribute](descriptor: (String, Seq[A])): hbase.HColumnDescriptor = {
-    val columnDescriptor = new hbase.HColumnDescriptor(descriptor._1)
+  def apply[A <: ColumnAttribute](descriptor: (String, Seq[A])): AHColumnDescriptor = {
+    val columnDescriptor = new AHColumnDescriptor(descriptor._1)
     descriptor._2.foreach {
       case BlockCache(enabled)          => columnDescriptor.setBlockCacheEnabled(enabled)
       case BlockSize(size)              => columnDescriptor.setBlocksize(size)

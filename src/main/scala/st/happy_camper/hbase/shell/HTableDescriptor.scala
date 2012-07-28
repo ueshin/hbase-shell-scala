@@ -15,7 +15,7 @@
  */
 package st.happy_camper.hbase.shell
 
-import org.apache.hadoop.hbase
+import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor, HColumnDescriptor => AHColumnDescriptor }
 
 /**
  * @author ueshin
@@ -30,7 +30,7 @@ object HTableDescriptor {
    */
   def apply(tablename: String,
             familyName: String,
-            familyNames: String*): hbase.HTableDescriptor = {
+            familyNames: String*): AHTableDescriptor = {
     apply(tablename, familyName -> Nil, familyNames.map(_ -> Nil): _*)
   }
 
@@ -42,7 +42,7 @@ object HTableDescriptor {
    */
   def apply[A <: ColumnAttribute](tablename: String,
                                   family: (String, Seq[A]),
-                                  families: (String, Seq[A])*): hbase.HTableDescriptor = {
+                                  families: (String, Seq[A])*): AHTableDescriptor = {
     apply(tablename, HColumnDescriptor(family), families.map(HColumnDescriptor(_)): _*)
   }
 
@@ -53,9 +53,9 @@ object HTableDescriptor {
    * @return
    */
   def apply(tablename: String,
-            columnDescriptor: hbase.HColumnDescriptor,
-            columnDescriptors: hbase.HColumnDescriptor*): hbase.HTableDescriptor = {
-    val tableDescriptor = new hbase.HTableDescriptor(tablename)
+            columnDescriptor: AHColumnDescriptor,
+            columnDescriptors: AHColumnDescriptor*): AHTableDescriptor = {
+    val tableDescriptor = new AHTableDescriptor(tablename)
     (columnDescriptor :: columnDescriptors.toList).foreach { descriptor =>
       tableDescriptor.addFamily(descriptor)
     }

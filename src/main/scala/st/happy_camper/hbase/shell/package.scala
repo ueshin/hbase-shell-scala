@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Happy-Camper Street.
+ * Copyright 2012 Happy-Camper Street.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,17 @@
  */
 package st.happy_camper.hbase
 
-import org.apache.hadoop.hbase.HBaseConfiguration
+import org.apache.hadoop.hbase.util.Bytes
 
 /**
  * @author ueshin
+ *
  */
-package object shell extends Shell(HBaseConfiguration.create)
+package object shell {
+
+  /**
+   * @param s
+   * @return
+   */
+  implicit def toBytes(s: String) = Bytes.toBytes(s)
+}
