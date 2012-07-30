@@ -1,6 +1,6 @@
 #!/bin/sh
 # ----------------------------------------------------------------------------
-#  Copyright 2001-2006 The Apache Software Foundation.
+#  Copyright 2011-2012 Happy-Camper Street.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
 #  limitations under the License.
 # ----------------------------------------------------------------------------
 
-#   Copyright (c) 2011 Happy-Camper Street.  All rights reserved.
-
 BASEDIR=`dirname $0`/..
 BASEDIR=`(cd "$BASEDIR"; pwd)`
 
@@ -29,7 +27,7 @@ function restoreSttySettings() {
   if [[ -n $SCALA_RUNNER_DEBUG ]]; then
     echo "restoring stty: $saved_stty"
   fi
-    
+
   stty $saved_stty
   saved_stty=""
 }
@@ -47,7 +45,7 @@ trap onExit INT
 # save terminal settings
 saved_stty=$(stty -g 2>/dev/null)
 # clear on error so we don't later try to restore them
-if [[ ! $? ]]; then  
+if [[ ! $? ]]; then
   saved_stty=""
 fi
 if [[ -n $SCALA_RUNNER_DEBUG ]]; then
