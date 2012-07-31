@@ -32,13 +32,7 @@ trait HBaseAdmin {
    *
    */
   def list: Seq[AHTableDescriptor] = {
-    val s = System.currentTimeMillis
-    val tables = admin.listTables
-    tables.foreach { table =>
-      println(table.getNameAsString)
-    }
-    println(tables.size + " row(s) in " + (System.currentTimeMillis - s) + " milliseconds.")
-    tables.toSeq
+    admin.listTables.toSeq
   }
 
   /**
@@ -46,11 +40,7 @@ trait HBaseAdmin {
    * @return
    */
   def describe(tablename: String) = {
-    val s = System.currentTimeMillis
-    val table = admin.getTableDescriptor(tablename)
-    println(table.toString)
-    println("1 row in " + (System.currentTimeMillis - s) + " milliseconds.")
-    table
+    admin.getTableDescriptor(tablename)
   }
 
   /**
@@ -104,9 +94,7 @@ trait HBaseAdmin {
    */
   def create(tableDescriptor: AHTableDescriptor,
              splitKeys: Array[Array[Byte]]): AHTableDescriptor = {
-    val s = System.currentTimeMillis
     admin.createTable(tableDescriptor, splitKeys)
-    println("created in " + (System.currentTimeMillis - s) + " milliseconds.")
     tableDescriptor
   }
 
@@ -121,9 +109,7 @@ trait HBaseAdmin {
              startKey: Array[Byte],
              endKey: Array[Byte],
              numRegions: Int): AHTableDescriptor = {
-    val s = System.currentTimeMillis
     admin.createTable(tableDescriptor, startKey, endKey, numRegions)
-    println("created in " + (System.currentTimeMillis - s) + " milliseconds.")
     tableDescriptor
   }
 
@@ -134,9 +120,7 @@ trait HBaseAdmin {
    */
   def createAsync(tableDescriptor: AHTableDescriptor,
                   splitKeys: Array[Array[Byte]]): AHTableDescriptor = {
-    val s = System.currentTimeMillis
     admin.createTableAsync(tableDescriptor, splitKeys)
-    println("created in " + (System.currentTimeMillis - s) + " milliseconds.")
     tableDescriptor
   }
 }

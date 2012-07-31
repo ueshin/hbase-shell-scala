@@ -16,7 +16,7 @@
 package st.happy_camper.hbase.shell
 
 import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.hbase.HBaseConfiguration
+import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor, HBaseConfiguration }
 import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
 
 import st.happy_camper.hbase.shell.client.HBaseAdmin
@@ -27,6 +27,50 @@ import st.happy_camper.hbase.shell.client.HBaseAdmin
 class Shell(val conf: Configuration) extends HBaseAdmin {
 
   val admin = new AHBaseAdmin(conf)
+
+  override def list: Seq[AHTableDescriptor] = {
+    val s = System.currentTimeMillis
+    val tables = super.list
+    tables.foreach { table =>
+      println(table.getNameAsString)
+    }
+    println(tables.size + " row(s) in " + (System.currentTimeMillis - s) + " milliseconds.")
+    tables
+  }
+
+  override def describe(tablename: String) = {
+    val s = System.currentTimeMillis
+    val table = super.describe(tablename)
+    println(table.toString)
+    println("1 row in " + (System.currentTimeMillis - s) + " milliseconds.")
+    table
+  }
+
+  override def create(tableDescriptor: AHTableDescriptor,
+                      splitKeys: Array[Array[Byte]]): AHTableDescriptor = {
+    val s = System.currentTimeMillis
+    super.create(tableDescriptor, splitKeys)
+    println("created in " + (System.currentTimeMillis - s) + " milliseconds.")
+    tableDescriptor
+  }
+
+  override def create(tableDescriptor: AHTableDescriptor,
+                      startKey: Array[Byte],
+                      endKey: Array[Byte],
+                      numRegions: Int): AHTableDescriptor = {
+    val s = System.currentTimeMillis
+    super.create(tableDescriptor, startKey, endKey, numRegions)
+    println("created in " + (System.currentTimeMillis - s) + " milliseconds.")
+    tableDescriptor
+  }
+
+  override def createAsync(tableDescriptor: AHTableDescriptor,
+                           splitKeys: Array[Array[Byte]]): AHTableDescriptor = {
+    val s = System.currentTimeMillis
+    super.createAsync(tableDescriptor, splitKeys)
+    println("created in " + (System.currentTimeMillis - s) + " milliseconds.")
+    tableDescriptor
+  }
 }
 
 /**
