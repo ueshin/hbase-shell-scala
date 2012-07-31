@@ -22,6 +22,7 @@ import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
 import st.happy_camper.hbase.shell.client.HBaseAdmin
 
 /**
+ * Represents HBase shell.
  * @author ueshin
  */
 class Shell(val conf: Configuration) extends HBaseAdmin {
@@ -74,6 +75,7 @@ class Shell(val conf: Configuration) extends HBaseAdmin {
 }
 
 /**
+ * An object Shell initialized by default configurations.
  * @author ueshin
  */
 object Shell extends Shell(HBaseConfiguration.create)

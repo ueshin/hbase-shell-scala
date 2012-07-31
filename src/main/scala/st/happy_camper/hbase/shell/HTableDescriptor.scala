@@ -18,15 +18,17 @@ package st.happy_camper.hbase.shell
 import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor, HColumnDescriptor => AHColumnDescriptor }
 
 /**
+ * Represents scala wrapper of class HTableDescriptor
  * @author ueshin
  */
 object HTableDescriptor {
 
   /**
-   * @param tablename
-   * @param familyName
-   * @param familyNames
-   * @return
+   * Returns new instance of HTableDescriptor.
+   * @param tablename the table name
+   * @param familyName a column family name
+   * @param familyNames other column family names
+   * @return the new instance of HTableDescriptor
    */
   def apply(tablename: String,
             familyName: String,
@@ -35,22 +37,26 @@ object HTableDescriptor {
   }
 
   /**
-   * @param tablename
-   * @param family
-   * @param families
-   * @return
+   * Returns new instance of HTableDescriptor.
+   * @param tablename the table name
+   * @param family a column family name and its attributes
+   * @param families other column family names and their attributes
+   * @return the new instance of HTableDescriptor
    */
   def apply[A <: ColumnAttribute](tablename: String,
                                   family: (String, Seq[A]),
                                   families: (String, Seq[A])*): AHTableDescriptor = {
-    apply(tablename, HColumnDescriptor(family), families.map(HColumnDescriptor(_)): _*)
+    apply(tablename,
+      HColumnDescriptor(family._1, family._2: _*),
+      families.map { family => HColumnDescriptor(family._1, family._2: _*) }: _*)
   }
 
   /**
-   * @param tablename
-   * @param columnDescriptor
-   * @param columnDescriptors
-   * @return
+   * Returns new instance of HTableDescriptor.
+   * @param tablename the table name
+   * @param columnDescriptor a column family descriptor
+   * @param columnDescriptors other column family descriptors
+   * @return the new instance of HTableDescriptor
    */
   def apply(tablename: String,
             columnDescriptor: AHColumnDescriptor,

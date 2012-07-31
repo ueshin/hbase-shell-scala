@@ -21,8 +21,8 @@ import org.specs2.mutable.{ Specification, BeforeAfter }
 import org.specs2.runner.JUnitRunner
 
 /**
+ * A spec for {@link Shell}
  * @author ueshin
- *
  */
 @RunWith(classOf[JUnitRunner])
 object ShellSpecTest extends ShellSpec
@@ -49,37 +49,38 @@ class ShellSpec extends Specification {
       val shell = new Shell(testingUtility.getConfiguration())
       val tables = shell.list
       tables.size must equalTo(1)
-      tables(0).getNameAsString() must equalTo("test")
+      tables(0).getNameAsString must equalTo("test")
     }
 
     "describe table" in new Context {
       val shell = new Shell(testingUtility.getConfiguration())
       val table = shell.describe("test")
-      table.getNameAsString() must equalTo("test")
+      table.getNameAsString must equalTo("test")
     }
 
     "create table" in new Context {
       val shell = new Shell(testingUtility.getConfiguration())
       shell.create("test1", "family")
-      testingUtility.getHBaseAdmin().tableExists("test1") must beTrue
+      testingUtility.getHBaseAdmin.tableExists("test1") must beTrue
     }
 
     "create table with ColumnAttribute" in new Context {
       val shell = new Shell(testingUtility.getConfiguration())
       val table = shell.create("test1", "family" -> (BlockCache(false) :: BlockSize(1) ::
         BloomFilter(BloomType.ROWCOL) :: Compression(CompressionType.GZ) :: InMemory(true) ::
-        ReplicationScope(1) :: TTL(10) :: Versions(5) :: Nil))
+        ReplicationScope(1) :: TTL(10) :: Versions(5) :: MinVersions(2) :: Nil))
       testingUtility.getHBaseAdmin().tableExists("test1") must beTrue
 
       val family = table.getFamily("family")
-      family.isBlockCacheEnabled() must beFalse
-      family.getBlocksize() must equalTo(1)
-      family.getBloomFilterType() must equalTo(BloomType.ROWCOL)
-      family.getCompressionType() must equalTo(CompressionType.GZ)
-      family.isInMemory() must beTrue
-      family.getScope() must equalTo(1)
-      family.getTimeToLive() must equalTo(10)
-      family.getMaxVersions() must equalTo(5)
+      family.isBlockCacheEnabled must beFalse
+      family.getBlocksize must equalTo(1)
+      family.getBloomFilterType must equalTo(BloomType.ROWCOL)
+      family.getCompressionType must equalTo(CompressionType.GZ)
+      family.isInMemory must beTrue
+      family.getScope must equalTo(1)
+      family.getTimeToLive must equalTo(10)
+      family.getMaxVersions must equalTo(5)
+      family.getMinVersions must equalTo(2)
     }
   }
 }

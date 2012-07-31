@@ -22,6 +22,7 @@ import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
 import st.happy_camper.hbase.shell.{ HTableDescriptor, ColumnAttribute }
 
 /**
+ * A trait of scala wrapper of class HBaseAdmin.
  * @author ueshin
  */
 trait HBaseAdmin {
@@ -29,25 +30,28 @@ trait HBaseAdmin {
   val admin: AHBaseAdmin
 
   /**
-   *
+   * Returns table list.
+   * @return the table list
    */
   def list: Seq[AHTableDescriptor] = {
     admin.listTables.toSeq
   }
 
   /**
-   * @param tablename
-   * @return
+   * Returns a table descriptor.
+   * @param tablename the table name
+   * @return the table descriptor
    */
   def describe(tablename: String) = {
     admin.getTableDescriptor(tablename)
   }
 
   /**
-   * @param tablename
-   * @param familyName
-   * @param familyNames
-   * @return
+   * Creates a new table.
+   * @param tablename the table name
+   * @param familyName a column family name
+   * @param familyNames other column family names
+   * @return the new table descriptor
    */
   def create(tablename: String,
              familyName: String,
@@ -56,10 +60,11 @@ trait HBaseAdmin {
   }
 
   /**
-   * @param tablename
-   * @param family
-   * @param families
-   * @return
+   * Creates a new table.
+   * @param tablename the table name
+   * @param family a column family name and its attributes
+   * @param families other column family names and their attributes
+   * @return the new table descriptor
    */
   def create[A <: ColumnAttribute](tablename: String,
                                    family: (String, Seq[A]),
@@ -68,10 +73,11 @@ trait HBaseAdmin {
   }
 
   /**
-   * @param tablename
-   * @param columnDescriptor
-   * @param columnDescriptors
-   * @return
+   * Creates a new table.
+   * @param tablename the table name
+   * @param columnDescriptor a column family descriptor
+   * @param columnDescriptors other column family descriptors
+   * @return the new table descriptor
    */
   def create(tablename: String,
              columnDescriptor: AHColumnDescriptor,
@@ -80,17 +86,19 @@ trait HBaseAdmin {
   }
 
   /**
-   * @param tableDescriptor
-   * @return
+   * Creates a new table.
+   * @param tableDescriptor the table descriptor
+   * @return the new table descriptor
    */
   def create(tableDescriptor: AHTableDescriptor): AHTableDescriptor = {
     create(tableDescriptor, null)
   }
 
   /**
-   * @param tableDescriptor
-   * @param splitKeys
-   * @return
+   * Creates a new table.
+   * @param tableDescriptor the table descriptor
+   * @param splitKeys the table split keys
+   * @return the new table descriptor
    */
   def create(tableDescriptor: AHTableDescriptor,
              splitKeys: Array[Array[Byte]]): AHTableDescriptor = {
@@ -99,11 +107,12 @@ trait HBaseAdmin {
   }
 
   /**
-   * @param tableDescriptor
-   * @param startKey
-   * @param endKey
-   * @param numRegions
-   * @return
+   * Creates a new table.
+   * @param tableDescriptor the table descriptor
+   * @param startKey the table split start key
+   * @param endKey the table split end key
+   * @param numRegions the number of the regions
+   * @return the new table descriptor
    */
   def create(tableDescriptor: AHTableDescriptor,
              startKey: Array[Byte],
@@ -114,9 +123,10 @@ trait HBaseAdmin {
   }
 
   /**
-   * @param tableDescriptor
-   * @param splitKeys
-   * @return
+   * Creates a new table asynchronously.
+   * @param tableDescriptor the table descriptor
+   * @param splitKeys the table split keys
+   * @return the new table descriptor
    */
   def createAsync(tableDescriptor: AHTableDescriptor,
                   splitKeys: Array[Array[Byte]]): AHTableDescriptor = {

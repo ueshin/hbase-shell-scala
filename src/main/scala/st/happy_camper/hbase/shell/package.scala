@@ -18,14 +18,15 @@ package st.happy_camper.hbase
 import org.apache.hadoop.hbase.util.Bytes
 
 /**
+ * A shell package object.
  * @author ueshin
- *
  */
 package object shell {
 
   /**
-   * @param s
-   * @return
+   * Returns byte array of the string.
+   * @param s the string
+   * @return the byte array
    */
   implicit def toBytes(s: String) = Bytes.toBytes(s)
 }

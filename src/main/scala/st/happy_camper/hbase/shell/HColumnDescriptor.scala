@@ -20,6 +20,7 @@ import org.apache.hadoop.hbase.io.hfile.Compression.Algorithm
 import org.apache.hadoop.hbase.regionserver.StoreFile
 
 /**
+ * Represents bloom filter types.
  * @author ueshin
  */
 object BloomType {
@@ -29,6 +30,7 @@ object BloomType {
 }
 
 /**
+ * Represents compression types.
  * @author ueshin
  */
 object CompressionType {
@@ -38,6 +40,10 @@ object CompressionType {
   val NONE = Algorithm.NONE
 }
 
+/**
+ * Represents column attributes.
+ * @author ueshin
+ */
 sealed trait ColumnAttribute
 case class BlockCache(enabled: Boolean) extends ColumnAttribute
 case class BlockSize(size: Int) extends ColumnAttribute
@@ -47,19 +53,23 @@ case class InMemory(inMemory: Boolean) extends ColumnAttribute
 case class ReplicationScope(scope: Int) extends ColumnAttribute
 case class TTL(ttl: Int) extends ColumnAttribute
 case class Versions(maxVersions: Int) extends ColumnAttribute
+case class MinVersions(minVersions: Int) extends ColumnAttribute
 
 /**
+ * Represents scala wrapper of class HColumnDescriptor.
  * @author ueshin
  */
 object HColumnDescriptor {
 
   /**
-   * @param descriptor
-   * @return
+   * Returns new instance of class HColumnDescriptor.
+   * @param name the column family name.
+   * @param descriptors the column family attributes
+   * @return new instance of class HColumnDescriptor
    */
-  def apply[A <: ColumnAttribute](descriptor: (String, Seq[A])): AHColumnDescriptor = {
-    val columnDescriptor = new AHColumnDescriptor(descriptor._1)
-    descriptor._2.foreach {
+  def apply[A <: ColumnAttribute](name: String, attributes: A*): AHColumnDescriptor = {
+    val columnDescriptor = new AHColumnDescriptor(name)
+    attributes.foreach {
       case BlockCache(enabled)          => columnDescriptor.setBlockCacheEnabled(enabled)
       case BlockSize(size)              => columnDescriptor.setBlocksize(size)
       case BloomFilter(bloomType)       => columnDescriptor.setBloomFilterType(bloomType)
@@ -68,6 +78,7 @@ object HColumnDescriptor {
       case ReplicationScope(scope)      => columnDescriptor.setScope(scope)
       case TTL(ttl)                     => columnDescriptor.setTimeToLive(ttl)
       case Versions(maxVersions)        => columnDescriptor.setMaxVersions(maxVersions)
+      case MinVersions(minVersions)     => columnDescriptor.setMinVersions(minVersions)
     }
     columnDescriptor
   }
