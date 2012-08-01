@@ -14,6 +14,8 @@
  * governing permissions and limitations under the License.
  */
 package st.happy_camper.hbase.shell
+package client
+package command.ddl
 
 import org.apache.hadoop.hbase.HBaseTestingUtility
 import org.junit.runner.RunWith
@@ -21,51 +23,22 @@ import org.specs2.mutable.{ Specification, BeforeAfter }
 import org.specs2.runner.JUnitRunner
 
 /**
- * A spec for {@link Shell}
+ * A spec for {@link CreateCommand}
  * @author ueshin
  */
 @RunWith(classOf[JUnitRunner])
-object ShellSpecTest extends ShellSpec
+object CreateCommandSpecTest extends CreateCommandSpec
 
-class ShellSpec extends Specification {
+class CreateCommandSpec extends Specification {
 
-  "Shell" should {
-
-    trait Context extends BeforeAfter {
-
-      val testingUtility = new HBaseTestingUtility()
-
-      def before = {
-        testingUtility.startMiniCluster
-        testingUtility.createTable("test", "family")
-      }
-
-      def after = {
-        testingUtility.shutdownMiniCluster
-      }
-    }
-
-    "list tables" in new Context {
-      val shell = new Shell(testingUtility.getConfiguration())
-      val tables = shell.list
-      tables.size must equalTo(1)
-      tables(0).getNameAsString must equalTo("test")
-    }
-
-    "describe table" in new Context {
-      val shell = new Shell(testingUtility.getConfiguration())
-      val table = shell.describe("test")
-      table.getNameAsString must equalTo("test")
-    }
+  "CreateCommand" should {
 
     "create table" in new Context {
-      val shell = new Shell(testingUtility.getConfiguration())
       shell.create("test1", "family")
       testingUtility.getHBaseAdmin.tableExists("test1") must beTrue
     }
 
     "create table with ColumnAttribute" in new Context {
-      val shell = new Shell(testingUtility.getConfiguration())
       val table = shell.create("test1", "family" -> (BlockCache(false) :: BlockSize(1) ::
         BloomFilter(BloomType.ROWCOL) :: Compression(CompressionType.GZ) :: InMemory(true) ::
         ReplicationScope(1) :: TTL(10) :: Versions(5) :: MinVersions(2) :: Nil))
@@ -81,6 +54,24 @@ class ShellSpec extends Specification {
       family.getTimeToLive must equalTo(10)
       family.getMaxVersions must equalTo(5)
       family.getMinVersions must equalTo(2)
+    }
+  }
+
+  trait Context extends BeforeAfter {
+
+    val testingUtility = new HBaseTestingUtility()
+
+    val shell = new HBaseAdmin with CreateCommand {
+      val conf = testingUtility.getConfiguration()
+    }
+
+    def before = {
+      testingUtility.startMiniCluster
+      testingUtility.createTable("test", "family")
+    }
+
+    def after = {
+      testingUtility.shutdownMiniCluster
     }
   }
 }

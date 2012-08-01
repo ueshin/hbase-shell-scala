@@ -14,18 +14,24 @@
  * governing permissions and limitations under the License.
  */
 package st.happy_camper.hbase.shell
+package client
+package command.ddl
 
-import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor, HBaseConfiguration }
-
-/**
- * Represents HBase shell.
- * @author ueshin
- */
-class Shell(val conf: Configuration) extends HBaseAdminShell
+import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor }
 
 /**
- * An object Shell initialized by default configurations.
+ * A trait to handle describe command.
  * @author ueshin
  */
-object Shell extends Shell(HBaseConfiguration.create)
+trait DescribeCommand {
+  self: HBaseAdmin =>
+
+  /**
+   * Returns a table descriptor.
+   * @param tablename the table name
+   * @return the table descriptor
+   */
+  def describe(tablename: String): AHTableDescriptor = {
+    admin.getTableDescriptor(tablename)
+  }
+}
