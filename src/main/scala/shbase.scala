@@ -13,4 +13,5 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+import st.happy_camper.hbase.shell._
 import st.happy_camper.hbase.shell.Shell._
