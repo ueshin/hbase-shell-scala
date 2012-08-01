@@ -18,7 +18,7 @@ package st.happy_camper.hbase.shell
 import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor }
 
 import st.happy_camper.hbase.shell.client.HBaseAdmin
-import st.happy_camper.hbase.shell.client.command.ddl.{ ListCommand, DescribeCommand, CreateCommand }
+import st.happy_camper.hbase.shell.client.command.ddl.{ ListCommand, EnableCommand, DisableCommand, DescribeCommand, CreateCommand }
 
 /**
  * Represents HBase admin shell.
@@ -27,7 +27,9 @@ import st.happy_camper.hbase.shell.client.command.ddl.{ ListCommand, DescribeCom
 trait HBaseAdminShell extends HBaseAdmin
     with ListCommand
     with DescribeCommand
-    with CreateCommand {
+    with CreateCommand
+    with EnableCommand
+    with DisableCommand {
 
   override def list: Seq[AHTableDescriptor] = {
     val s = System.currentTimeMillis
@@ -73,4 +75,43 @@ trait HBaseAdminShell extends HBaseAdmin
     tableDescriptor
   }
 
+  override def isEnabled(tablename: Array[Byte]) = {
+    val s = System.currentTimeMillis
+    val isEnabled = super.isEnabled(tablename)
+    println(isEnabled)
+    println("1 row in " + (System.currentTimeMillis - s) + " milliseconds.")
+    isEnabled
+  }
+
+  override def enable(tablename: Array[Byte]) = {
+    val s = System.currentTimeMillis
+    super.enable(tablename)
+    println("0 row in " + (System.currentTimeMillis - s) + " milliseconds.")
+  }
+
+  override def enableAsync(tablename: Array[Byte]) = {
+    val s = System.currentTimeMillis
+    super.enableAsync(tablename)
+    println("0 row in " + (System.currentTimeMillis - s) + " milliseconds.")
+  }
+
+  override def isDisabled(tablename: Array[Byte]) = {
+    val s = System.currentTimeMillis
+    val isDisabled = super.isDisabled(tablename)
+    println(isDisabled)
+    println("1 row in " + (System.currentTimeMillis - s) + " milliseconds.")
+    isDisabled
+  }
+
+  override def disable(tablename: Array[Byte]) = {
+    val s = System.currentTimeMillis
+    super.disable(tablename)
+    println("0 row in " + (System.currentTimeMillis - s) + " milliseconds.")
+  }
+
+  override def disableAsync(tablename: Array[Byte]) = {
+    val s = System.currentTimeMillis
+    super.disableAsync(tablename)
+    println("0 row in " + (System.currentTimeMillis - s) + " milliseconds.")
+  }
 }
