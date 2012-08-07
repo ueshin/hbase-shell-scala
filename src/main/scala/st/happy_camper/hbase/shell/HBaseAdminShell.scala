@@ -19,6 +19,7 @@ import st.happy_camper.hbase.shell.client.HBaseAdmin
 import st.happy_camper.hbase.shell.client.command.ddl.CreateCommand
 import st.happy_camper.hbase.shell.client.command.ddl.DescribeCommand
 import st.happy_camper.hbase.shell.client.command.ddl.DisableCommand
+import st.happy_camper.hbase.shell.client.command.ddl.DropCommand
 import st.happy_camper.hbase.shell.client.command.ddl.EnableCommand
 import st.happy_camper.hbase.shell.client.command.ddl.ListCommand
 
@@ -27,4 +28,4 @@ import st.happy_camper.hbase.shell.client.command.ddl.ListCommand
  * @author ueshin
  */
 trait HBaseAdminShell extends HBaseAdmin
-  with ListCommand with DescribeCommand with CreateCommand with EnableCommand with DisableCommand 
+  with ListCommand with DescribeCommand with CreateCommand with EnableCommand with DisableCommand with DropCommand
