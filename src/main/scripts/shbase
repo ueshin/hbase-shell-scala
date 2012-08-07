@@ -52,7 +52,7 @@ if [[ -n $SCALA_RUNNER_DEBUG ]]; then
   echo "saved stty: $saved_stty"
 fi
 
-sh $BASEDIR/bin/repl # -i $BASEDIR/bin/shbase.scala
+sh $BASEDIR/bin/repl
 
 scala_exit_status=$?
 onExit
