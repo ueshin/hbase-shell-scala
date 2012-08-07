@@ -16,7 +16,7 @@
 package st.happy_camper.hbase.shell
 
 import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor, HBaseConfiguration }
+import org.apache.hadoop.hbase.HBaseConfiguration
 
 /**
  * Represents HBase shell.

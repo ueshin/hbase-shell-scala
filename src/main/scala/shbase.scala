@@ -15,3 +15,4 @@
  */
 import st.happy_camper.hbase.shell._
 import st.happy_camper.hbase.shell.Shell._
+import st.happy_camper.hbase.shell.ColumnAttribute._

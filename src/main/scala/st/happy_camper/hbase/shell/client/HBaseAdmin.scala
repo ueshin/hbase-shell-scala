@@ -17,19 +17,15 @@ package st.happy_camper.hbase.shell
 package client
 
 import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor, HColumnDescriptor => AHColumnDescriptor }
 import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
-
-import st.happy_camper.hbase.shell.{ HTableDescriptor, ColumnAttribute }
 
 /**
  * A trait of scala wrapper of class HBaseAdmin.
  * @author ueshin
  */
-trait HBaseAdmin {
+trait HBaseAdmin extends Client {
 
   val conf: Configuration
 
-  lazy val admin = new AHBaseAdmin(conf)
-
+  implicit lazy val admin = new AHBaseAdmin(conf)
 }

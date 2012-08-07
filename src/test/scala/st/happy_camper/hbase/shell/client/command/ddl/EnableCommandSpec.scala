@@ -19,7 +19,8 @@ package command.ddl
 
 import org.apache.hadoop.hbase.HBaseTestingUtility
 import org.junit.runner.RunWith
-import org.specs2.mutable.{ Specification, BeforeAfter }
+import org.specs2.mutable.BeforeAfter
+import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
 
 /**
@@ -31,40 +32,38 @@ object EnableCommandSpecTest extends EnableCommandSpec
 
 class EnableCommandSpec extends Specification {
 
+  val testingUtility = new HBaseTestingUtility()
+
+  step {
+    testingUtility.startMiniCluster
+  }
+
   "EnableCommand" should {
 
-    "check if a table is enabled" in new Context {
-      shell.isEnabled("test") must beTrue
-
-      shell.disable("test")
-      shell.isEnabled("test") must beFalse
-    }
-
     "enable a table" in new Context {
-      shell.disable("test")
+      table("test").isEnabled must beTrue
 
-      shell.isEnabled("test") must beFalse
+      table("test").disable().isEnabled must beFalse
 
-      shell.enable("test")
-      shell.isEnabled("test") must beTrue
+      table("test").enable().isEnabled must beTrue
     }
   }
 
-  trait Context extends BeforeAfter {
+  step {
+    testingUtility.shutdownMiniCluster
+  }
 
-    val testingUtility = new HBaseTestingUtility()
+  trait Context extends BeforeAfter with HBaseAdmin with EnableCommand with DisableCommand {
 
-    val shell = new HBaseAdmin with EnableCommand with DisableCommand {
-      val conf = testingUtility.getConfiguration()
-    }
+    val conf = testingUtility.getConfiguration()
 
     def before = {
-      testingUtility.startMiniCluster
       testingUtility.createTable("test", "family")
     }
 
     def after = {
-      testingUtility.shutdownMiniCluster
+      admin.close()
+      testingUtility.deleteTable("test")
     }
   }
 }

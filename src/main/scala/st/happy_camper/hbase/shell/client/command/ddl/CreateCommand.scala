@@ -17,7 +17,13 @@ package st.happy_camper.hbase.shell
 package client
 package command.ddl
 
-import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor, HColumnDescriptor => AHColumnDescriptor }
+import scala.collection.JavaConversions.mapAsJavaMap
+
+import org.apache.hadoop.fs.Path
+import org.apache.hadoop.hbase.Coprocessor
+import org.apache.hadoop.hbase.HColumnDescriptor
+import org.apache.hadoop.hbase.HTableDescriptor
+import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
 
 /**
  * A trait to handle create commands.
@@ -26,91 +32,135 @@ import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor, HColumnD
 trait CreateCommand {
   self: HBaseAdmin =>
 
-  /**
-   * Creates a new table.
-   * @param tablename the table name
-   * @param familyName a column family name
-   * @param familyNames other column family names
-   * @return the new table descriptor
-   */
-  def create(tablename: String,
-             familyName: String,
-             familyNames: String*): AHTableDescriptor = {
-    create(HTableDescriptor(tablename, familyName, familyNames: _*))
-  }
+  implicit def creatingTable(table: Table) = CreateCommand.CreatingTable(table.tablename)
+}
+
+/**
+ * A companion object of trait {@link CreateCommand}.
+ * @author ueshin
+ */
+object CreateCommand {
+
+  private[CreateCommand] sealed trait HasColumnFamily
 
   /**
-   * Creates a new table.
-   * @param tablename the table name
-   * @param family a column family name and its attributes
-   * @param families other column family names and their attributes
-   * @return the new table descriptor
+   * Represents a describing table.
+   * @param <HCF> the type of the evidence if this has column families or not
+   * @author ueshin
    */
-  def create[A <: ColumnAttribute](tablename: String,
-                                   family: (String, Seq[A]),
-                                   families: (String, Seq[A])*): AHTableDescriptor = {
-    create(HTableDescriptor(tablename, family, families: _*))
-  }
+  case class CreatingTable[HCF](
+      override val tablename: Array[Byte],
+      families: Map[Array[Byte], Seq[ColumnAttribute]] = Map.empty,
+      coprocessors: List[(String, Path, Int, Map[String, String])] = Nil) extends Table(tablename) {
 
-  /**
-   * Creates a new table.
-   * @param tablename the table name
-   * @param columnDescriptor a column family descriptor
-   * @param columnDescriptors other column family descriptors
-   * @return the new table descriptor
-   */
-  def create(tablename: String,
-             columnDescriptor: AHColumnDescriptor,
-             columnDescriptors: AHColumnDescriptor*): AHTableDescriptor = {
-    create(HTableDescriptor(tablename, columnDescriptor, columnDescriptors: _*))
-  }
+    /**
+     * Adds a column family.
+     * @param name the column family name
+     * @param attributes the column family's attributes
+     * @return the copy of this having the column family
+     */
+    def addFamily(name: Array[Byte], attributes: ColumnAttribute*): CreatingTable[HasColumnFamily] = {
+      copy(families = families + (name -> attributes))
+    }
 
-  /**
-   * Creates a new table.
-   * @param tableDescriptor the table descriptor
-   * @return the new table descriptor
-   */
-  def create(tableDescriptor: AHTableDescriptor): AHTableDescriptor = {
-    create(tableDescriptor, null)
-  }
+    /**
+     * Adds a coprocessor.
+     * @param className the coprocessor class name
+     * @return the copy of this having the coprocessor
+     */
+    def addCoprocessor(className: String): CreatingTable[HCF] = {
+      addCoprocessor(className, null, Coprocessor.PRIORITY_USER)
+    }
 
-  /**
-   * Creates a new table.
-   * @param tableDescriptor the table descriptor
-   * @param splitKeys the table split keys
-   * @return the new table descriptor
-   */
-  def create(tableDescriptor: AHTableDescriptor,
-             splitKeys: Array[Array[Byte]]): AHTableDescriptor = {
-    admin.createTable(tableDescriptor, splitKeys)
-    tableDescriptor
-  }
+    /**
+     * Adds a coprocessor.
+     * @param className the coprocessor class name
+     * @param jarFilePath the Path of the jar file. If it's null, the class will be loaded from default classloader.
+     * @param priority the priority
+     * @param kvs arbitrary key-value parameter pairs passed into the coprocessor
+     * @return the copy of this having the coprocessor
+     */
+    def addCoprocessor(className: String, jarFilePath: Path,
+                       priority: Int, kvs: (String, String)*): CreatingTable[HCF] = {
+      copy(coprocessors = coprocessors :+ (className, jarFilePath, priority, kvs.toMap))
+    }
 
-  /**
-   * Creates a new table.
-   * @param tableDescriptor the table descriptor
-   * @param startKey the table split start key
-   * @param endKey the table split end key
-   * @param numRegions the number of the regions
-   * @return the new table descriptor
-   */
-  def create(tableDescriptor: AHTableDescriptor,
-             startKey: Array[Byte],
-             endKey: Array[Byte],
-             numRegions: Int): AHTableDescriptor = {
-    admin.createTable(tableDescriptor, startKey, endKey, numRegions)
-    tableDescriptor
-  }
+    /**
+     * Creates a new table.
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @param ev implicit evidence instance
+     * @return the descriptor of the created table
+     */
+    def create()(implicit admin: AHBaseAdmin, ev: HCF =:= HasColumnFamily) = {
+      val descriptor = toHTableDescriptor
+      admin.createTable(descriptor)
+      descriptor
+    }
 
-  /**
-   * Creates a new table asynchronously.
-   * @param tableDescriptor the table descriptor
-   * @param splitKeys the table split keys
-   * @return the new table descriptor
-   */
-  def createAsync(tableDescriptor: AHTableDescriptor,
-                  splitKeys: Array[Array[Byte]]): AHTableDescriptor = {
-    admin.createTableAsync(tableDescriptor, splitKeys)
-    tableDescriptor
+    /**
+     * Creates a new table with pre-split region keys.
+     * @param splitKeys the split keys
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @param ev implicit evidence instance
+     * @return the descriptor of the created table
+     */
+    def create(splitKeys: Array[Array[Byte]])(implicit admin: AHBaseAdmin, ev: HCF =:= HasColumnFamily) = {
+      val descriptor = toHTableDescriptor
+      admin.createTable(descriptor, splitKeys)
+      descriptor
+    }
+
+    /**
+     * Creates a new table with pre-split region key range.
+     * @param startKey beginning of key range
+     * @param endKey end of key range
+     * @param numRegions the total number of regions to create
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @param ev implicit evidence instance
+     * @return the descriptor of the created table
+     */
+    def create(startKey: Array[Byte], endKey: Array[Byte], numRegions: Int)(implicit admin: AHBaseAdmin, ev: HCF =:= HasColumnFamily) = {
+      val descriptor = toHTableDescriptor
+      admin.createTable(descriptor, startKey, endKey, numRegions)
+      descriptor
+    }
+
+    /**
+     * @param splitKeys
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @param ev implicit evidence instance
+     * @return the descriptor of the created table
+     */
+    def createAsync(splitKeys: Array[Array[Byte]])(implicit admin: AHBaseAdmin, ev: HCF =:= HasColumnFamily) = {
+      val descriptor = toHTableDescriptor
+      admin.createTableAsync(descriptor, splitKeys)
+      descriptor
+    }
+
+    private def toHTableDescriptor()(implicit ev: HCF =:= HasColumnFamily) = {
+      val tableDescriptor = new HTableDescriptor(tablename)
+      for ((name, attributes) <- families) {
+        tableDescriptor.addFamily((new HColumnDescriptor(name) /: attributes) {
+          (column, attribute) =>
+            import ColumnAttribute._
+            attribute match {
+              case BlockCache(enabled)          => column.setBlockCacheEnabled(enabled)
+              case BlockSize(size)              => column.setBlocksize(size)
+              case BloomFilter(bloomType)       => column.setBloomFilterType(bloomType)
+              case Compression(compressionType) => column.setCompressionType(compressionType)
+              case InMemory(inMemory)           => column.setInMemory(inMemory)
+              case ReplicationScope(scope)      => column.setScope(scope)
+              case TTL(ttl)                     => column.setTimeToLive(ttl)
+              case Versions(maxVersions)        => column.setMaxVersions(maxVersions)
+              case MinVersions(minVersions)     => column.setMinVersions(minVersions)
+            }
+            column
+        })
+      }
+      for ((className, jarFilePath, priority, kvs) <- coprocessors) {
+        tableDescriptor.addCoprocessor(className, jarFilePath, priority, kvs)
+      }
+      tableDescriptor
+    }
   }
 }

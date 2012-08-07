@@ -17,6 +17,8 @@ package st.happy_camper.hbase.shell
 package client
 package command.ddl
 
+import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
+
 /**
  * A trait to handle enable commands.
  * @author ueshin
@@ -24,53 +26,49 @@ package command.ddl
 trait EnableCommand {
   self: HBaseAdmin =>
 
-  /**
-   * Checks if a table is enabled.
-   * @param tablename the table name
-   * @return true if the table is enabled, false otherwise.
-   */
-  def isEnabled(tablename: String): Boolean = {
-    isEnabled(toBytes(tablename))
-  }
+  implicit def enablingTable(table: Table) = EnableCommand.EnablingTable(table.tablename)
+}
+
+/**
+ * A companion object of trait {@link DisableCommand}.
+ * @author ueshin
+ */
+object EnableCommand {
 
   /**
-   * Checks if a table is enabled.
-   * @param tablename the table name
-   * @return true if the table is enabled, false otherwise.
+   * Represents a enabling table.
+   * @author ueshin
    */
-  def isEnabled(tablename: Array[Byte]): Boolean = {
-    admin.isTableEnabled(tablename)
-  }
+  case class EnablingTable(
+      override val tablename: Array[Byte]) extends Table(tablename) {
 
-  /**
-   * Enables a table.
-   * @param tablename the table name
-   */
-  def enable(tablename: String): Unit = {
-    enable(toBytes(tablename))
-  }
+    /**
+     * Checks if a table is enabled.
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @return true if the table is enabled, false otherwise.
+     */
+    def isEnabled()(implicit admin: AHBaseAdmin): Boolean = {
+      admin.isTableEnabled(tablename)
+    }
 
-  /**
-   * Enables a table.
-   * @param tablename the table name
-   */
-  def enable(tablename: Array[Byte]): Unit = {
-    admin.enableTable(tablename)
-  }
+    /**
+     * Enables a table.
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @return this
+     */
+    def enable()(implicit admin: AHBaseAdmin): Table = {
+      if (!isEnabled) admin.enableTable(tablename)
+      this
+    }
 
-  /**
-   * Enables a table asynchronously.
-   * @param tablename the table name
-   */
-  def enableAsync(tablename: String): Unit = {
-    enableAsync(toBytes(tablename))
-  }
-
-  /**
-   * Enables a table asynchronously.
-   * @param tablename the table name
-   */
-  def enableAsync(tablename: Array[Byte]) = {
-    admin.enableTableAsync(tablename)
+    /**
+     * Enables a table asynchronously.
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @return this
+     */
+    def enableAsync()(implicit admin: AHBaseAdmin): Table = {
+      if (!isEnabled) admin.enableTableAsync(tablename)
+      this
+    }
   }
 }

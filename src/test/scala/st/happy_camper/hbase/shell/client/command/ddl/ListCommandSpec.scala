@@ -19,11 +19,12 @@ package command.ddl
 
 import org.apache.hadoop.hbase.HBaseTestingUtility
 import org.junit.runner.RunWith
-import org.specs2.mutable.{ Specification, BeforeAfter }
+import org.specs2.mutable.BeforeAfter
+import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
 
 /**
- * A spec for {@link CreateCommand}
+ * A spec for {@link ListCommand}
  * @author ueshin
  */
 @RunWith(classOf[JUnitRunner])
@@ -31,29 +32,36 @@ object ListCommandSpecTest extends ListCommandSpec
 
 class ListCommandSpec extends Specification {
 
+  val testingUtility = new HBaseTestingUtility()
+
+  step {
+    testingUtility.startMiniCluster
+  }
+
   "ListCommand" should {
+
     "list tables" in new Context {
-      val tables = shell.list
+      val tables = list
       tables.size must equalTo(1)
       tables(0).getNameAsString must equalTo("test")
     }
   }
 
-  trait Context extends BeforeAfter {
+  step {
+    testingUtility.shutdownMiniCluster
+  }
 
-    val testingUtility = new HBaseTestingUtility()
+  trait Context extends BeforeAfter with HBaseAdmin with ListCommand {
 
-    val shell = new HBaseAdmin with ListCommand {
-      val conf = testingUtility.getConfiguration()
-    }
+    val conf = testingUtility.getConfiguration()
 
     def before = {
-      testingUtility.startMiniCluster
       testingUtility.createTable("test", "family")
     }
 
     def after = {
-      testingUtility.shutdownMiniCluster
+      admin.close()
+      testingUtility.deleteTable("test")
     }
   }
 }

@@ -14,37 +14,16 @@
  * governing permissions and limitations under the License.
  */
 package st.happy_camper.hbase.shell
-package client
-package command.ddl
-
-import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
-
-import org.apache.hadoop.hbase.HTableDescriptor
 
 /**
- * A trait to handle list command.
+ * A client package object.
  * @author ueshin
  */
-trait ListCommand {
-  self: HBaseAdmin =>
+package object client {
 
   /**
-   * Returns table list.
-   * @return the table list
+   * Represents a table used by the client.
+   * @author ueshin
    */
-  def list(): Seq[HTableDescriptor] = {
-    ListCommand.list()
-  }
-}
-
-object ListCommand {
-
-  /**
-   * Returns table list.
-   * @param admin implicit {@link AHBaseAdmin} instance
-   * @return the table list
-   */
-  def list()(implicit admin: AHBaseAdmin): Seq[HTableDescriptor] = {
-    admin.listTables.toSeq
-  }
+  protected[client] class Table(val tablename: Array[Byte])
 }

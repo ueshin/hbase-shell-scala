@@ -19,7 +19,8 @@ package command.ddl
 
 import org.apache.hadoop.hbase.HBaseTestingUtility
 import org.junit.runner.RunWith
-import org.specs2.mutable.{ Specification, BeforeAfter }
+import org.specs2.mutable.BeforeAfter
+import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
 
 /**
@@ -31,20 +32,27 @@ object CreateCommandSpecTest extends CreateCommandSpec
 
 class CreateCommandSpec extends Specification {
 
+  val testingUtility = new HBaseTestingUtility()
+
+  step {
+    testingUtility.startMiniCluster
+  }
+
   "CreateCommand" should {
 
     "create table" in new Context {
-      shell.create("test1", "family")
+      table("test1").addFamily("family").create()
       testingUtility.getHBaseAdmin.tableExists("test1") must beTrue
     }
 
     "create table with ColumnAttribute" in new Context {
-      val table = shell.create("test1", "family" -> (BlockCache(false) :: BlockSize(1) ::
-        BloomFilter(BloomType.ROWCOL) :: Compression(CompressionType.GZ) :: InMemory(true) ::
-        ReplicationScope(1) :: TTL(10) :: Versions(5) :: MinVersions(2) :: Nil))
+      import ColumnAttribute._
+      val t = table("test1").addFamily("family", BlockCache(false), BlockSize(1),
+        BloomFilter(BloomType.ROWCOL), Compression(CompressionType.GZ), InMemory(true),
+        ReplicationScope(1), TTL(10), Versions(5), MinVersions(2)).create()
       testingUtility.getHBaseAdmin().tableExists("test1") must beTrue
 
-      val family = table.getFamily("family")
+      val family = t.getFamily("family")
       family.isBlockCacheEnabled must beFalse
       family.getBlocksize must equalTo(1)
       family.getBloomFilterType must equalTo(BloomType.ROWCOL)
@@ -57,21 +65,22 @@ class CreateCommandSpec extends Specification {
     }
   }
 
-  trait Context extends BeforeAfter {
+  step {
+    testingUtility.shutdownMiniCluster
+  }
 
-    val testingUtility = new HBaseTestingUtility()
+  trait Context extends BeforeAfter with HBaseAdmin with CreateCommand {
 
-    val shell = new HBaseAdmin with CreateCommand {
-      val conf = testingUtility.getConfiguration()
-    }
+    val conf = testingUtility.getConfiguration()
 
     def before = {
-      testingUtility.startMiniCluster
       testingUtility.createTable("test", "family")
     }
 
     def after = {
-      testingUtility.shutdownMiniCluster
+      admin.close()
+      testingUtility.deleteTable("test")
+      testingUtility.deleteTable("test1")
     }
   }
 }

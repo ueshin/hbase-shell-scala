@@ -19,11 +19,12 @@ package command.ddl
 
 import org.apache.hadoop.hbase.HBaseTestingUtility
 import org.junit.runner.RunWith
-import org.specs2.mutable.{ Specification, BeforeAfter }
+import org.specs2.mutable.BeforeAfter
+import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
 
 /**
- * A spec for {@link CreateCommand}
+ * A spec for {@link DescribeCommand}
  * @author ueshin
  */
 @RunWith(classOf[JUnitRunner])
@@ -31,28 +32,40 @@ object DescribeCommandSpecTest extends DescribeCommandSpec
 
 class DescribeCommandSpec extends Specification {
 
+  val testingUtility = new HBaseTestingUtility()
+
+  step {
+    testingUtility.startMiniCluster
+  }
+
   "DescribeCommand" should {
+
+    "check if the table exists" in new Context {
+      table("test").exists must beTrue
+      table("test1").exists must beFalse
+    }
+
     "describe table" in new Context {
-      val table = shell.describe("test")
-      table.getNameAsString must equalTo("test")
+      val t = table("test").describe
+      t.map(_.getNameAsString) must beSome("test")
     }
   }
 
-  trait Context extends BeforeAfter {
+  step {
+    testingUtility.shutdownMiniCluster
+  }
 
-    val testingUtility = new HBaseTestingUtility()
+  trait Context extends BeforeAfter with HBaseAdmin with DescribeCommand {
 
-    val shell = new HBaseAdmin with DescribeCommand {
-      val conf = testingUtility.getConfiguration()
-    }
+    val conf = testingUtility.getConfiguration()
 
     def before = {
-      testingUtility.startMiniCluster
       testingUtility.createTable("test", "family")
     }
 
     def after = {
-      testingUtility.shutdownMiniCluster
+      admin.close()
+      testingUtility.deleteTable("test")
     }
   }
 }

@@ -17,7 +17,8 @@ package st.happy_camper.hbase.shell
 package client
 package command.ddl
 
-import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor }
+import org.apache.hadoop.hbase.HTableDescriptor
+import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
 
 /**
  * A trait to handle describe command.
@@ -26,12 +27,42 @@ import org.apache.hadoop.hbase.{ HTableDescriptor => AHTableDescriptor }
 trait DescribeCommand {
   self: HBaseAdmin =>
 
+  implicit def describingTable(table: Table) = DescribeCommand.DescribingTable(table.tablename)
+}
+
+/**
+ * A companion object of trait {@link DescribeCommand}.
+ * @author ueshin
+ */
+object DescribeCommand {
+
   /**
-   * Returns a table descriptor.
-   * @param tablename the table name
-   * @return the table descriptor
+   * Represents a describing table.
+   * @author ueshin
    */
-  def describe(tablename: String): AHTableDescriptor = {
-    admin.getTableDescriptor(tablename)
+  case class DescribingTable(
+      override val tablename: Array[Byte]) extends Table(tablename) {
+
+    /**
+     * Checks if a table exists or not.
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @return true if the table exists, false otherwise
+     */
+    def exists()(implicit admin: AHBaseAdmin): Boolean = {
+      admin.tableExists(tablename)
+    }
+
+    /**
+     * Returns a table descriptor.
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @return the table descriptor
+     */
+    def describe()(implicit admin: AHBaseAdmin): Option[HTableDescriptor] = {
+      if (exists()) {
+        Option(admin.getTableDescriptor(tablename))
+      } else {
+        None
+      }
+    }
   }
 }

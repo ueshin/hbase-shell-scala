@@ -16,6 +16,8 @@
 package st.happy_camper.hbase
 
 import org.apache.hadoop.hbase.util.Bytes
+import org.apache.hadoop.hbase.regionserver.StoreFile
+import org.apache.hadoop.hbase.io.hfile.Compression.Algorithm
 
 /**
  * A shell package object.
@@ -29,4 +31,43 @@ package object shell {
    * @return the byte array
    */
   implicit def toBytes(s: String) = Bytes.toBytes(s)
+
+  /**
+   * Represents bloom filter types.
+   * @author ueshin
+   */
+  object BloomType {
+    val NONE = StoreFile.BloomType.NONE
+    val ROW = StoreFile.BloomType.ROW
+    val ROWCOL = StoreFile.BloomType.ROWCOL
+  }
+
+  /**
+   * Represents compression types.
+   * @author ueshin
+   */
+  object CompressionType {
+    val LZO = Algorithm.LZO
+    val GZ = Algorithm.GZ
+    val SNAPPY = Algorithm.SNAPPY
+    val NONE = Algorithm.NONE
+  }
+
+  /**
+   * Represents column attributes.
+   * @author ueshin
+   */
+  sealed trait ColumnAttribute
+
+  object ColumnAttribute {
+    case class BlockCache(enabled: Boolean) extends ColumnAttribute
+    case class BlockSize(size: Int) extends ColumnAttribute
+    case class BloomFilter(bloomType: StoreFile.BloomType) extends ColumnAttribute
+    case class Compression(compressionType: Algorithm) extends ColumnAttribute
+    case class InMemory(inMemory: Boolean) extends ColumnAttribute
+    case class ReplicationScope(scope: Int) extends ColumnAttribute
+    case class TTL(ttl: Int) extends ColumnAttribute
+    case class Versions(maxVersions: Int) extends ColumnAttribute
+    case class MinVersions(minVersions: Int) extends ColumnAttribute
+  }
 }

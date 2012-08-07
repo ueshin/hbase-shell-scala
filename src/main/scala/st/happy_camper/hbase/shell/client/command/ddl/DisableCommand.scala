@@ -17,6 +17,8 @@ package st.happy_camper.hbase.shell
 package client
 package command.ddl
 
+import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
+
 /**
  * A trait to handle disable commands.
  * @author ueshin
@@ -24,53 +26,49 @@ package command.ddl
 trait DisableCommand {
   self: HBaseAdmin =>
 
-  /**
-   * Checks if a table is disabled.
-   * @param tablename the table name
-   * @return true if the table is disabled, false otherwise.
-   */
-  def isDisabled(tablename: String): Boolean = {
-    isDisabled(toBytes(tablename))
-  }
+  implicit def disablingTable(table: Table) = DisableCommand.DisablingTable(table.tablename)
+}
+
+/**
+ * A companion object of trait {@link DisableCommand}.
+ * @author ueshin
+ */
+object DisableCommand {
 
   /**
-   * Checks if a table is disabled.
-   * @param tablename the table name
-   * @return true if the table is disabled, false otherwise.
+   * Represents a disabling table.
+   * @author ueshin
    */
-  def isDisabled(tablename: Array[Byte]): Boolean = {
-    admin.isTableDisabled(tablename)
-  }
+  case class DisablingTable(
+      override val tablename: Array[Byte]) extends Table(tablename) {
 
-  /**
-   * Disables a table.
-   * @param tablename the table name
-   */
-  def disable(tablename: String): Unit = {
-    disable(toBytes(tablename))
-  }
+    /**
+     * Checks if a table is disabled.
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @return true if the table is disabled, false otherwise.
+     */
+    def isDisabled()(implicit admin: AHBaseAdmin): Boolean = {
+      admin.isTableDisabled(tablename)
+    }
 
-  /**
-   * Disables a table.
-   * @param tablename the table name
-   */
-  def disable(tablename: Array[Byte]): Unit = {
-    admin.disableTable(tablename)
-  }
+    /**
+     * Disables a table.
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @return this
+     */
+    def disable()(implicit admin: AHBaseAdmin): Table = {
+      if (!isDisabled) admin.disableTable(tablename)
+      this
+    }
 
-  /**
-   * Disables a table asynchronously.
-   * @param tablename the table name
-   */
-  def disableAsync(tablename: String): Unit = {
-    disableAsync(toBytes(tablename))
-  }
-
-  /**
-   * Disables a table asynchronously.
-   * @param tablename the table name
-   */
-  def disableAsync(tablename: Array[Byte]) = {
-    admin.disableTableAsync(tablename)
+    /**
+     * Disables a table asynchronously.
+     * @param admin implicit {@link AHBaseAdmin} instance
+     * @return this
+     */
+    def disableAsync()(implicit admin: AHBaseAdmin): Table = {
+      if (!isDisabled) admin.disableTableAsync(tablename)
+      this
+    }
   }
 }
