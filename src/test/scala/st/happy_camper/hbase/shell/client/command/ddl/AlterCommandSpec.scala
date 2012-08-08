@@ -24,13 +24,13 @@ import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
 
 /**
- * A spec for {@link CreateCommand}
+ * A spec for {@link AlterCommand}
  * @author ueshin
  */
 @RunWith(classOf[JUnitRunner])
-object CreateCommandSpecTest extends CreateCommandSpec
+object AlterCommandSpecTest extends AlterCommandSpec
 
-class CreateCommandSpec extends Specification {
+class AlterCommandSpec extends Specification {
 
   val testingUtility = new HBaseTestingUtility()
 
@@ -38,21 +38,17 @@ class CreateCommandSpec extends Specification {
     testingUtility.startMiniCluster
   }
 
-  "CreateCommand" should {
+  "AlterCommand" should {
 
-    "create table" in new Context {
-      table("test1").addFamily("family").create()
-      testingUtility.getHBaseAdmin.tableExists("test1") must beTrue
-    }
-
-    "create table with ColumnAttribute" in new Context {
+    "alter table with ColumnAttribute" in new Context {
       import ColumnAttribute._
-      table("test1").addFamily("family", BlockCache(false), BlockSize(1),
+      table("test").disable()
+      table("test").alterFamily("family", BlockCache(false), BlockSize(1),
         BloomFilter(BloomType.ROWCOL), Compression(CompressionType.GZ), InMemory(true),
-        ReplicationScope(1), TTL(10), Versions(5), MinVersions(2)).create()
-      testingUtility.getHBaseAdmin().tableExists("test1") must beTrue
+        ReplicationScope(1), TTL(10), Versions(5), MinVersions(2)).alter()
+      table("test").enable()
 
-      val family = table("test1").describe().get.getFamily("family")
+      val family = table("test").describe.get.getFamily("family")
       family.isBlockCacheEnabled must beFalse
       family.getBlocksize must equalTo(1)
       family.getBloomFilterType must equalTo(BloomType.ROWCOL)
@@ -69,7 +65,7 @@ class CreateCommandSpec extends Specification {
     testingUtility.shutdownMiniCluster
   }
 
-  trait Context extends BeforeAfter with HBaseAdmin with CreateCommand with DescribeCommand {
+  trait Context extends BeforeAfter with HBaseAdmin with AlterCommand with EnableCommand with DisableCommand with DescribeCommand {
 
     val conf = testingUtility.getConfiguration()
 
@@ -80,7 +76,6 @@ class CreateCommandSpec extends Specification {
     def after = {
       admin.close()
       testingUtility.deleteTable("test")
-      testingUtility.deleteTable("test1")
     }
   }
 }

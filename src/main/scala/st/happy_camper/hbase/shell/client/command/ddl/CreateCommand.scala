@@ -51,7 +51,7 @@ object CreateCommand {
   case class CreatingTable[HCF](
       override val tablename: Array[Byte],
       families: Map[Array[Byte], Seq[ColumnAttribute]] = Map.empty,
-      coprocessors: List[(String, Path, Int, Map[String, String])] = Nil)(implicit admin: AHBaseAdmin) extends Table(tablename) {
+      coprocessors: Map[String, (Path, Int, Map[String, String])] = Map.empty)(implicit admin: AHBaseAdmin) extends Table(tablename) {
 
     /**
      * Adds a column family.
@@ -82,7 +82,7 @@ object CreateCommand {
      */
     def addCoprocessor(className: String, jarFilePath: Path,
                        priority: Int, kvs: (String, String)*): CreatingTable[HCF] = {
-      copy(coprocessors = coprocessors :+ (className, jarFilePath, priority, kvs.toMap))
+      copy(coprocessors = coprocessors + (className -> (jarFilePath, priority, kvs.toMap)))
     }
 
     /**
@@ -90,10 +90,10 @@ object CreateCommand {
      * @param ev implicit evidence instance
      * @return the descriptor of the created table
      */
-    def create()(implicit ev: HCF =:= HasColumnFamily) = {
+    def create()(implicit ev: HCF =:= HasColumnFamily): HTableDescriptor = {
       val descriptor = toHTableDescriptor
       admin.createTable(descriptor)
-      descriptor
+      admin.getTableDescriptor(tablename)
     }
 
     /**
@@ -102,10 +102,10 @@ object CreateCommand {
      * @param ev implicit evidence instance
      * @return the descriptor of the created table
      */
-    def create(splitKeys: Array[Array[Byte]])(implicit ev: HCF =:= HasColumnFamily) = {
+    def create(splitKeys: Array[Array[Byte]])(implicit ev: HCF =:= HasColumnFamily): HTableDescriptor = {
       val descriptor = toHTableDescriptor
       admin.createTable(descriptor, splitKeys)
-      descriptor
+      admin.getTableDescriptor(tablename)
     }
 
     /**
@@ -116,47 +116,35 @@ object CreateCommand {
      * @param ev implicit evidence instance
      * @return the descriptor of the created table
      */
-    def create(startKey: Array[Byte], endKey: Array[Byte], numRegions: Int)(implicit ev: HCF =:= HasColumnFamily) = {
+    def create(startKey: Array[Byte], endKey: Array[Byte], numRegions: Int)(implicit ev: HCF =:= HasColumnFamily): HTableDescriptor = {
       val descriptor = toHTableDescriptor
       admin.createTable(descriptor, startKey, endKey, numRegions)
-      descriptor
+      admin.getTableDescriptor(tablename)
     }
 
     /**
+     * Creates a new table with pre-split region keys asynchronously.
      * @param splitKeys
      * @param ev implicit evidence instance
      * @return the descriptor of the created table
      */
-    def createAsync(splitKeys: Array[Array[Byte]])(implicit ev: HCF =:= HasColumnFamily) = {
+    def createAsync(splitKeys: Array[Array[Byte]])(implicit ev: HCF =:= HasColumnFamily): HTableDescriptor = {
       val descriptor = toHTableDescriptor
       admin.createTableAsync(descriptor, splitKeys)
-      descriptor
+      admin.getTableDescriptor(tablename)
     }
 
     private def toHTableDescriptor() = {
-      val tableDescriptor = new HTableDescriptor(tablename)
+      val descriptor = new HTableDescriptor(tablename)
       for ((name, attributes) <- families) {
-        tableDescriptor.addFamily((new HColumnDescriptor(name) /: attributes) {
-          (column, attribute) =>
-            import ColumnAttribute._
-            attribute match {
-              case BlockCache(enabled)          => column.setBlockCacheEnabled(enabled)
-              case BlockSize(size)              => column.setBlocksize(size)
-              case BloomFilter(bloomType)       => column.setBloomFilterType(bloomType)
-              case Compression(compressionType) => column.setCompressionType(compressionType)
-              case InMemory(inMemory)           => column.setInMemory(inMemory)
-              case ReplicationScope(scope)      => column.setScope(scope)
-              case TTL(ttl)                     => column.setTimeToLive(ttl)
-              case Versions(maxVersions)        => column.setMaxVersions(maxVersions)
-              case MinVersions(minVersions)     => column.setMinVersions(minVersions)
-            }
-            column
-        })
+        val column = new HColumnDescriptor(name)
+        modifyColumnAttributes(column, attributes: _*)
+        descriptor.addFamily(column)
       }
-      for ((className, jarFilePath, priority, kvs) <- coprocessors) {
-        tableDescriptor.addCoprocessor(className, jarFilePath, priority, kvs)
+      for ((className, (jarFilePath, priority, kvs)) <- coprocessors) {
+        descriptor.addCoprocessor(className, jarFilePath, priority, kvs)
       }
-      tableDescriptor
+      descriptor
     }
   }
 }

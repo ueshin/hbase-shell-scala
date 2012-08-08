@@ -15,6 +15,8 @@
  */
 package st.happy_camper.hbase.shell
 
+import org.apache.hadoop.hbase.HColumnDescriptor
+
 /**
  * A client package object.
  * @author ueshin
@@ -26,4 +28,26 @@ package object client {
    * @author ueshin
    */
   protected[client] class Table(val tablename: Array[Byte])
+
+  /**
+   * @param descriptor
+   * @param attributes
+   * @return
+   */
+  protected[client] def modifyColumnAttributes(column: HColumnDescriptor, attributes: ColumnAttribute*) = {
+    for (attribute <- attributes) {
+      import ColumnAttribute._
+      attribute match {
+        case BlockCache(enabled)          => column.setBlockCacheEnabled(enabled)
+        case BlockSize(size)              => column.setBlocksize(size)
+        case BloomFilter(bloomType)       => column.setBloomFilterType(bloomType)
+        case Compression(compressionType) => column.setCompressionType(compressionType)
+        case InMemory(inMemory)           => column.setInMemory(inMemory)
+        case ReplicationScope(scope)      => column.setScope(scope)
+        case TTL(ttl)                     => column.setTimeToLive(ttl)
+        case Versions(maxVersions)        => column.setMaxVersions(maxVersions)
+        case MinVersions(minVersions)     => column.setMinVersions(minVersions)
+      }
+    }
+  }
 }
