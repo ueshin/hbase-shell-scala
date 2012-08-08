@@ -41,23 +41,21 @@ object DescribeCommand {
    * @author ueshin
    */
   case class DescribingTable(
-      override val tablename: Array[Byte]) extends Table(tablename) {
+      override val tablename: Array[Byte])(implicit admin: AHBaseAdmin) extends Table(tablename) {
 
     /**
      * Checks if a table exists or not.
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @return true if the table exists, false otherwise
      */
-    def exists()(implicit admin: AHBaseAdmin): Boolean = {
+    def exists(): Boolean = {
       admin.tableExists(tablename)
     }
 
     /**
      * Returns a table descriptor.
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @return the table descriptor
      */
-    def describe()(implicit admin: AHBaseAdmin): Option[HTableDescriptor] = {
+    def describe(): Option[HTableDescriptor] = {
       if (exists()) {
         Option(admin.getTableDescriptor(tablename))
       } else {

@@ -40,33 +40,30 @@ object EnableCommand {
    * @author ueshin
    */
   case class EnablingTable(
-      override val tablename: Array[Byte]) extends Table(tablename) {
+      override val tablename: Array[Byte])(implicit admin: AHBaseAdmin) extends Table(tablename) {
 
     /**
      * Checks if a table is enabled.
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @return true if the table is enabled, false otherwise.
      */
-    def isEnabled()(implicit admin: AHBaseAdmin): Boolean = {
+    def isEnabled(): Boolean = {
       admin.isTableEnabled(tablename)
     }
 
     /**
      * Enables a table.
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @return this
      */
-    def enable()(implicit admin: AHBaseAdmin): Table = {
+    def enable(): Table = {
       if (!isEnabled) admin.enableTable(tablename)
       this
     }
 
     /**
      * Enables a table asynchronously.
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @return this
      */
-    def enableAsync()(implicit admin: AHBaseAdmin): Table = {
+    def enableAsync(): Table = {
       if (!isEnabled) admin.enableTableAsync(tablename)
       this
     }

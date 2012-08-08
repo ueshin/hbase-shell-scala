@@ -40,33 +40,30 @@ object DisableCommand {
    * @author ueshin
    */
   case class DisablingTable(
-      override val tablename: Array[Byte]) extends Table(tablename) {
+      override val tablename: Array[Byte])(implicit admin: AHBaseAdmin) extends Table(tablename) {
 
     /**
      * Checks if a table is disabled.
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @return true if the table is disabled, false otherwise.
      */
-    def isDisabled()(implicit admin: AHBaseAdmin): Boolean = {
+    def isDisabled(): Boolean = {
       admin.isTableDisabled(tablename)
     }
 
     /**
      * Disables a table.
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @return this
      */
-    def disable()(implicit admin: AHBaseAdmin): Table = {
+    def disable(): Table = {
       if (!isDisabled) admin.disableTable(tablename)
       this
     }
 
     /**
      * Disables a table asynchronously.
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @return this
      */
-    def disableAsync()(implicit admin: AHBaseAdmin): Table = {
+    def disableAsync(): Table = {
       if (!isDisabled) admin.disableTableAsync(tablename)
       this
     }

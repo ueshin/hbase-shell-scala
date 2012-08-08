@@ -51,7 +51,7 @@ object CreateCommand {
   case class CreatingTable[HCF](
       override val tablename: Array[Byte],
       families: Map[Array[Byte], Seq[ColumnAttribute]] = Map.empty,
-      coprocessors: List[(String, Path, Int, Map[String, String])] = Nil) extends Table(tablename) {
+      coprocessors: List[(String, Path, Int, Map[String, String])] = Nil)(implicit admin: AHBaseAdmin) extends Table(tablename) {
 
     /**
      * Adds a column family.
@@ -87,11 +87,10 @@ object CreateCommand {
 
     /**
      * Creates a new table.
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @param ev implicit evidence instance
      * @return the descriptor of the created table
      */
-    def create()(implicit admin: AHBaseAdmin, ev: HCF =:= HasColumnFamily) = {
+    def create()(implicit ev: HCF =:= HasColumnFamily) = {
       val descriptor = toHTableDescriptor
       admin.createTable(descriptor)
       descriptor
@@ -100,11 +99,10 @@ object CreateCommand {
     /**
      * Creates a new table with pre-split region keys.
      * @param splitKeys the split keys
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @param ev implicit evidence instance
      * @return the descriptor of the created table
      */
-    def create(splitKeys: Array[Array[Byte]])(implicit admin: AHBaseAdmin, ev: HCF =:= HasColumnFamily) = {
+    def create(splitKeys: Array[Array[Byte]])(implicit ev: HCF =:= HasColumnFamily) = {
       val descriptor = toHTableDescriptor
       admin.createTable(descriptor, splitKeys)
       descriptor
@@ -115,11 +113,10 @@ object CreateCommand {
      * @param startKey beginning of key range
      * @param endKey end of key range
      * @param numRegions the total number of regions to create
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @param ev implicit evidence instance
      * @return the descriptor of the created table
      */
-    def create(startKey: Array[Byte], endKey: Array[Byte], numRegions: Int)(implicit admin: AHBaseAdmin, ev: HCF =:= HasColumnFamily) = {
+    def create(startKey: Array[Byte], endKey: Array[Byte], numRegions: Int)(implicit ev: HCF =:= HasColumnFamily) = {
       val descriptor = toHTableDescriptor
       admin.createTable(descriptor, startKey, endKey, numRegions)
       descriptor
@@ -127,17 +124,16 @@ object CreateCommand {
 
     /**
      * @param splitKeys
-     * @param admin implicit {@link AHBaseAdmin} instance
      * @param ev implicit evidence instance
      * @return the descriptor of the created table
      */
-    def createAsync(splitKeys: Array[Array[Byte]])(implicit admin: AHBaseAdmin, ev: HCF =:= HasColumnFamily) = {
+    def createAsync(splitKeys: Array[Array[Byte]])(implicit ev: HCF =:= HasColumnFamily) = {
       val descriptor = toHTableDescriptor
       admin.createTableAsync(descriptor, splitKeys)
       descriptor
     }
 
-    private def toHTableDescriptor()(implicit ev: HCF =:= HasColumnFamily) = {
+    private def toHTableDescriptor() = {
       val tableDescriptor = new HTableDescriptor(tablename)
       for ((name, attributes) <- families) {
         tableDescriptor.addFamily((new HColumnDescriptor(name) /: attributes) {

@@ -40,13 +40,12 @@ object DropCommand {
    * @author ueshin
    */
   case class DroppingTable(
-      override val tablename: Array[Byte]) extends Table(tablename) {
+      override val tablename: Array[Byte])(implicit admin: AHBaseAdmin) extends Table(tablename) {
 
     /**
      * Drops a table.
-     * @param admin implicit {@link AHBaseAdmin} instance
      */
-    def drop()(implicit admin: AHBaseAdmin): Unit = {
+    def drop(): Unit = {
       admin.deleteTable(tablename)
     }
   }
