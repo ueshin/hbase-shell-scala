@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>st.happy_camper.hbase</groupId>
+		<artifactId>hbase-shell-scala</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>st.happy_camper.hbase</groupId>
+	<artifactId>hbase-shell-scala-coprocessor-protocol</artifactId>
+	<packaging>jar</packaging>
+	<name>hbase-shell-scala-coprocessor-protocol</name>
+
+	<scm>
+		<connection>scm:git://github.com/ueshin/hbase-shell-scala.git</connection>
+		<developerConnection>scm:git:git@github.com:ueshin/hbase-shell-scala.git</developerConnection>
+		<url>https://github.com/ueshin/hbase-shell-scala/tree/master/hbase-shell-scala-coprocessor-protocol</url>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>st.happy_camper.hbase</groupId>
+			<artifactId>hbase-shell-scala-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>st.happy_camper.hbase</groupId>
+		<artifactId>hbase-shell-scala</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>st.happy_camper.hbase</groupId>
+	<artifactId>hbase-shell-scala-client</artifactId>
+	<packaging>jar</packaging>
+	<name>hbase-shell-scala-client</name>
+
+	<scm>
+		<connection>scm:git://github.com/ueshin/hbase-shell-scala.git</connection>
+		<developerConnection>scm:git:git@github.com:ueshin/hbase-shell-scala.git</developerConnection>
+		<url>https://github.com/ueshin/hbase-shell-scala/tree/master/hbase-shell-scala-client</url>
+	</scm>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>assemble</goal>
+						</goals>
+						<phase>package</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<programs>
+						<program>
+							<name>repl</name>
+							<mainClass>scala.tools.nsc.MainGenericRunner</mainClass>
+							<!-- 
+							<commandLineArguments>
+								<commandLineArgument>-i</commandLineArgument>
+								<commandLineArgument>"$BASEDIR"/bin/shbase.scala</commandLineArgument>
+							</commandLineArguments>
+							-->
+						</program>
+					</programs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<copy file="${project.build.scriptSourceDirectory}/shbase"
+									todir="${assembleDirectory}/bin" />
+								<copy file="${project.build.sourceDirectory}/shbase.scala"
+									todir="${assembleDirectory}/bin" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>st.happy_camper.hbase</groupId>
+			<artifactId>hbase-shell-scala-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>st.happy_camper.hbase</groupId>
+			<artifactId>hbase-shell-scala-coprocessor-protocol</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

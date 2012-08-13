@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>st.happy_camper.hbase</groupId>
 	<artifactId>hbase-shell-scala</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<name>hbase-shell-scala</name>
 	<version>0.0.1-SNAPSHOT</version>
 
@@ -53,6 +53,13 @@
 
 		<assembleDirectory>${project.build.directory}/appassembler</assembleDirectory>
 	</properties>
+
+	<modules>
+		<module>hbase-shell-scala-core</module>
+		<module>hbase-shell-scala-coprocessor-protocol</module>
+		<module>hbase-shell-scala-coprocessor</module>
+		<module>hbase-shell-scala-client</module>
+	</modules>
 
 	<build>
 		<sourceDirectory>src/main/scala</sourceDirectory>
@@ -170,64 +177,6 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>appassembler-maven-plugin</artifactId>
-				<version>1.2.2</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>assemble</goal>
-						</goals>
-						<phase>package</phase>
-					</execution>
-				</executions>
-				<configuration>
-					<extraJvmArguments>-server -Dscala.usejavacp=true</extraJvmArguments>
-					<configurationDirectory>conf</configurationDirectory>
-					<copyConfigurationDirectory>true</copyConfigurationDirectory>
-					<repositoryLayout>flat</repositoryLayout>
-					<repositoryName>lib</repositoryName>
-					<useAsterikClassPath>true</useAsterikClassPath>
-					<licenseHeaderFile>${basedir}/src/appassembler/LICENSE-header.txt</licenseHeaderFile>
-					<platforms>
-						<platform>unix</platform>
-					</platforms>
-					<programs>
-						<program>
-							<name>repl</name>
-							<mainClass>scala.tools.nsc.MainGenericRunner</mainClass>
-							<!-- 
-							<commandLineArguments>
-								<commandLineArgument>-i</commandLineArgument>
-								<commandLineArgument>"$BASEDIR"/bin/shbase.scala</commandLineArgument>
-							</commandLineArguments>
-							-->
-						</program>
-					</programs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<configuration>
-							<target>
-								<copy file="${project.build.scriptSourceDirectory}/shbase"
-									todir="${assembleDirectory}/bin" />
-								<copy file="${project.build.sourceDirectory}/shbase.scala"
-									todir="${assembleDirectory}/bin" />
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9</version>
@@ -245,6 +194,40 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>appassembler-maven-plugin</artifactId>
+					<version>1.2.2</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>assemble</goal>
+							</goals>
+							<phase>package</phase>
+						</execution>
+					</executions>
+					<configuration>
+						<extraJvmArguments>-server -Dscala.usejavacp=true</extraJvmArguments>
+						<configurationDirectory>conf</configurationDirectory>
+						<copyConfigurationDirectory>true</copyConfigurationDirectory>
+						<repositoryLayout>flat</repositoryLayout>
+						<repositoryName>lib</repositoryName>
+						<useAsterikClassPath>true</useAsterikClassPath>
+						<licenseHeaderFile>${basedir}/src/appassembler/LICENSE-header.txt</licenseHeaderFile>
+						<platforms>
+							<platform>unix</platform>
+						</platforms>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.7</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<dependencies>
