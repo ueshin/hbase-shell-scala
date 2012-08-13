@@ -13,9 +13,11 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package st.happy_camper.hbase.shell
+package st.happy_camper.hbase.shell.client
 
-import st.happy_camper.hbase.shell.client.HBaseAdmin
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.hbase.HBaseConfiguration
+
 import st.happy_camper.hbase.shell.client.command.ddl.AlterCommand
 import st.happy_camper.hbase.shell.client.command.ddl.CreateCommand
 import st.happy_camper.hbase.shell.client.command.ddl.DescribeCommand
@@ -28,5 +30,24 @@ import st.happy_camper.hbase.shell.client.command.ddl.ListCommand
  * Represents HBase admin shell.
  * @author ueshin
  */
-trait HBaseAdminShell extends HBaseAdmin
-  with ListCommand with DescribeCommand with CreateCommand with EnableCommand with DisableCommand with DropCommand with AlterCommand
+trait HBaseAdminShell
+  extends HBaseAdmin
+  with ListCommand
+  with DescribeCommand
+  with CreateCommand
+  with EnableCommand
+  with DisableCommand
+  with DropCommand
+  with AlterCommand
+
+/**
+ * Represents HBase shell.
+ * @author ueshin
+ */
+class Shell(val conf: Configuration) extends HBaseAdminShell
+
+/**
+ * An object Shell initialized by default configurations.
+ * @author ueshin
+ */
+object Shell extends Shell(HBaseConfiguration.create)

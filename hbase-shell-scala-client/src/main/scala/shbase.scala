@@ -14,5 +14,6 @@
  * governing permissions and limitations under the License.
  */
 import st.happy_camper.hbase.shell._
-import st.happy_camper.hbase.shell.Shell._
-import st.happy_camper.hbase.shell.ColumnAttribute._
+import st.happy_camper.hbase.shell.client._
+import st.happy_camper.hbase.shell.client.Shell._
+import st.happy_camper.hbase.shell.client.ColumnAttribute._

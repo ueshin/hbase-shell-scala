@@ -13,19 +13,21 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package st.happy_camper.hbase.shell
+package st.happy_camper.hbase
 
-import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.hbase.HBaseConfiguration
-
-/**
- * Represents HBase shell.
- * @author ueshin
- */
-class Shell(val conf: Configuration) extends HBaseAdminShell
+import org.apache.hadoop.hbase.util.Bytes
 
 /**
- * An object Shell initialized by default configurations.
+ * A shell package object.
  * @author ueshin
  */
-object Shell extends Shell(HBaseConfiguration.create)
+package object shell {
+
+  /**
+   * Returns byte array of the string.
+   * @param s the string
+   * @return the byte array
+   */
+  implicit def toBytes(s: String) = Bytes.toBytes(s)
+
+}
