@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>st.happy_camper.hbase.shell.coprocessor</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../../../lib/template.css" />
+      <script type="text/javascript" src="../../../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body onload="sh_highlightDocument('../lib/', '.min.js');" class="value">
+      <div id="definition">
+        <img src="../../../../../lib/package_big.png" />
+        <p id="owner"><a name="st" class="extype" href="../../../../package.html">st</a>.<a name="st.happy_camper" class="extype" href="../../../package.html">happy_camper</a>.<a name="st.happy_camper.hbase" class="extype" href="../../package.html">hbase</a>.<a name="st.happy_camper.hbase.shell" class="extype" href="../package.html">shell</a></p>
+        <h1>coprocessor</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">coprocessor</span>
+      </span>
+      </h4>
+      
+      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>A coprocessor package object.</p></div></div>
+    
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div class="types members" id="types">
+              <h3>Type Members</h3>
+              <ol><li visbl="pub" name="st.happy_camper.hbase.shell.coprocessor.package.AugmentRegionScanner" data-isabs="false">
+      <a id="AugmentRegionScanner:AugmentRegionScanner"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="package$$AugmentRegionScanner.html"><span class="name">AugmentRegionScanner</span></a><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents an augmented RegionScanner.</p>
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.coprocessor.HBaseShellEndpoint" data-isabs="false">
+      <a id="HBaseShellEndpoint:HBaseShellEndpoint"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="HBaseShellEndpoint.html"><span class="name">HBaseShellEndpoint</span></a><span class="result"> extends BaseEndpointCoprocessor with RowCountProtocol with RowCountProtocolHandler</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A coprocessor endpoint.</p>
+    </li></ol>
+            </div>
+
+        
+
+        <div class="values members" id="values">
+              <h3>Value Members</h3>
+              <ol><li visbl="pub" name="st.happy_camper.hbase.shell.coprocessor.package#asMasterCoprocessorEnvironment" data-isabs="false">
+      <a id="asMasterCoprocessorEnvironment(CoprocessorEnvironment):MasterCoprocessorEnvironment"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asMasterCoprocessorEnvironment</span><span class="params">(<span name="env">env: <span name="org.apache.hadoop.hbase.CoprocessorEnvironment" class="extype">CoprocessorEnvironment</span></span>)</span><span class="result">: <span name="org.apache.hadoop.hbase.coprocessor.MasterCoprocessorEnvironment" class="extype">MasterCoprocessorEnvironment</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Casts env from CoprocessorEnvironment to WALCoprocessorEnvironment.</p><div class="fullcomment"><div class="comment cmt"><p>Casts env from CoprocessorEnvironment to WALCoprocessorEnvironment.</p></div><dl class="paramcmts block"><dt class="param">env</dt><dd class="cmt"><p>the env</p></dd><dt>returns</dt><dd class="cmt"><p>the casted env
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.coprocessor.package" class="extype" href="package$.html">package</a></dd></dl></div>
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.coprocessor.package#asRegionCoprocessorEnvironment" data-isabs="false">
+      <a id="asRegionCoprocessorEnvironment(CoprocessorEnvironment):RegionCoprocessorEnvironment"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asRegionCoprocessorEnvironment</span><span class="params">(<span name="env">env: <span name="org.apache.hadoop.hbase.CoprocessorEnvironment" class="extype">CoprocessorEnvironment</span></span>)</span><span class="result">: <span name="org.apache.hadoop.hbase.coprocessor.RegionCoprocessorEnvironment" class="extype">RegionCoprocessorEnvironment</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Casts env from CoprocessorEnvironment to CoprocessorEnvironment.</p><div class="fullcomment"><div class="comment cmt"><p>Casts env from CoprocessorEnvironment to CoprocessorEnvironment.</p></div><dl class="paramcmts block"><dt class="param">env</dt><dd class="cmt"><p>the env</p></dd><dt>returns</dt><dd class="cmt"><p>the casted env
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.coprocessor.package" class="extype" href="package$.html">package</a></dd></dl></div>
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.coprocessor.package#asWALCoprocessorEnvironment" data-isabs="false">
+      <a id="asWALCoprocessorEnvironment(CoprocessorEnvironment):WALCoprocessorEnvironment"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">asWALCoprocessorEnvironment</span><span class="params">(<span name="env">env: <span name="org.apache.hadoop.hbase.CoprocessorEnvironment" class="extype">CoprocessorEnvironment</span></span>)</span><span class="result">: <span name="org.apache.hadoop.hbase.coprocessor.WALCoprocessorEnvironment" class="extype">WALCoprocessorEnvironment</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Casts env from CoprocessorEnvironment to WALCoprocessorEnvironment.</p><div class="fullcomment"><div class="comment cmt"><p>Casts env from CoprocessorEnvironment to WALCoprocessorEnvironment.</p></div><dl class="paramcmts block"><dt class="param">env</dt><dd class="cmt"><p>the env</p></dd><dt>returns</dt><dd class="cmt"><p>the casted env
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.coprocessor.package" class="extype" href="package$.html">package</a></dd></dl></div>
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.coprocessor.handler" data-isabs="false">
+      <a id="handler:handler"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a href="handler/package.html"><span class="name">handler</span></a>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.coprocessor.package#toAugmentRegionScanner" data-isabs="false">
+      <a id="toAugmentRegionScanner(RegionScanner):AugmentRegionScanner"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">toAugmentRegionScanner</span><span class="params">(<span name="scanner">scanner: <span name="org.apache.hadoop.hbase.regionserver.RegionScanner" class="extype">RegionScanner</span></span>)</span><span class="result">: <a name="st.happy_camper.hbase.shell.coprocessor.package.AugmentRegionScanner" class="extype" href="package$$AugmentRegionScanner.html">AugmentRegionScanner</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns AugmentRegionScanner instance</p><div class="fullcomment"><div class="comment cmt"><p>Returns AugmentRegionScanner instance</p></div><dl class="paramcmts block"><dt class="param">scanner</dt><dd class="cmt"><p>the scanner</p></dd><dt>returns</dt><dd class="cmt"><p>the instance
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.coprocessor.package" class="extype" href="package$.html">package</a></dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
