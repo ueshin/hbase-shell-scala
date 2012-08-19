@@ -23,24 +23,21 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
+				<artifactId>maven-shade-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>prepare-libraries</id>
-						<phase>prepare-package</phase>
-						<configuration>
-							<target>
-								<copy file="${org.scala-lang:scala-library:jar}" todir="${project.build.outputDirectory}/lib" />
-								<copy file="${st.happy_camper.hbase:hbase-shell-scala-core:jar}"
-									todir="${project.build.outputDirectory}/lib" />
-								<copy
-									file="${st.happy_camper.hbase:hbase-shell-scala-coprocessor-protocol:jar}"
-									todir="${project.build.outputDirectory}/lib" />
-							</target>
-						</configuration>
+						<phase>package</phase>
 						<goals>
-							<goal>run</goal>
+							<goal>shade</goal>
 						</goals>
+						<configuration>
+							<artifactSet>
+								<includes>
+									<include>org.scala-lang:scala-library</include>
+									<include>st.happy_camper.hbase:*</include>
+								</includes>
+							</artifactSet>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
