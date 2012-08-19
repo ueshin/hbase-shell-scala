@@ -69,7 +69,7 @@ class CreateCommandSpec extends Specification {
     testingUtility.shutdownMiniCluster
   }
 
-  trait Context extends BeforeAfter with HBaseAdmin with CreateCommand with DescribeCommand {
+  trait Context extends BeforeAfter with Client with HBaseAdmin with CreateCommand with DescribeCommand {
 
     val conf = testingUtility.getConfiguration()
 

@@ -24,7 +24,7 @@ import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
  * @author ueshin
  */
 trait EnableCommand {
-  self: HBaseAdmin =>
+  self: Client with HBaseAdmin =>
 
   implicit def enablingTable(table: Table) = EnableCommand.EnablingTable(table.tablename)
 }

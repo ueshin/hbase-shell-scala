@@ -30,7 +30,7 @@ import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
  * @author ueshin
  */
 trait AlterCommand {
-  self: HBaseAdmin =>
+  self: Client with HBaseAdmin =>
 
   implicit def alteringTable(table: Table) = AlterCommand.AlteringTable(table.tablename)
 }

@@ -24,7 +24,7 @@ import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
  * @author ueshin
  */
 trait DisableCommand {
-  self: HBaseAdmin =>
+  self: Client with HBaseAdmin =>
 
   implicit def disablingTable(table: Table) = DisableCommand.DisablingTable(table.tablename)
 }

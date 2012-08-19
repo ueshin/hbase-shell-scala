@@ -15,20 +15,10 @@
  */
 package st.happy_camper.hbase.shell.client
 
-import org.apache.hadoop.conf.Configuration
-
 /**
- * A super trait of HBase client.
+ * A trait of scala wrapper of class HTable.
  * @author ueshin
  */
-trait Client {
-
-  implicit val conf: Configuration
-
-  /**
-   * Creates new table instance.
-   * @param tablename the table name
-   * @return the new instance
-   */
-  def table(tablename: Array[Byte]) = new Table(tablename)
+trait HTable {
+  self: Client =>
 }

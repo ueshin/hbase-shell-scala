@@ -24,7 +24,7 @@ import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
  * @author ueshin
  */
 trait DropCommand {
-  self: HBaseAdmin =>
+  self: Client with HBaseAdmin =>
 
   implicit def droppingTable(table: Table) = DropCommand.DroppingTable(table.tablename)
 }

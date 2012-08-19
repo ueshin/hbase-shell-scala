@@ -17,7 +17,6 @@ package st.happy_camper.hbase.shell.client
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.hbase.HBaseConfiguration
-
 import st.happy_camper.hbase.shell.client.command.ddl.AlterCommand
 import st.happy_camper.hbase.shell.client.command.ddl.CreateCommand
 import st.happy_camper.hbase.shell.client.command.ddl.DescribeCommand
@@ -25,29 +24,47 @@ import st.happy_camper.hbase.shell.client.command.ddl.DisableCommand
 import st.happy_camper.hbase.shell.client.command.ddl.DropCommand
 import st.happy_camper.hbase.shell.client.command.ddl.EnableCommand
 import st.happy_camper.hbase.shell.client.command.ddl.ListCommand
+import st.happy_camper.hbase.shell.client.command.dml.CountCommand
 
 /**
  * Represents HBase admin shell.
  * @author ueshin
  */
 trait HBaseAdminShell
-  extends HBaseAdmin
-  with ListCommand
-  with DescribeCommand
-  with CreateCommand
-  with EnableCommand
-  with DisableCommand
-  with DropCommand
-  with AlterCommand
+    extends HBaseAdmin
+    with ListCommand
+    with DescribeCommand
+    with CreateCommand
+    with EnableCommand
+    with DisableCommand
+    with DropCommand
+    with AlterCommand {
+  self: Client =>
+}
+
+/**
+ * Represents HTable shell.
+ * @author ueshin
+ */
+trait HTableShell
+    extends HTable
+    with CountCommand {
+  self: Client =>
+}
 
 /**
  * Represents HBase shell.
  * @author ueshin
  */
-class Shell(val conf: Configuration) extends HBaseAdminShell
+trait Shell
+  extends Client
+  with HBaseAdminShell
+  with HTableShell
 
 /**
  * An object Shell initialized by default configurations.
  * @author ueshin
  */
-object Shell extends Shell(HBaseConfiguration.create)
+object Shell extends Shell {
+  implicit val conf = HBaseConfiguration.create
+}

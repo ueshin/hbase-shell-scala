@@ -16,16 +16,14 @@
 package st.happy_camper.hbase.shell
 package client
 
-import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
 
 /**
  * A trait of scala wrapper of class HBaseAdmin.
  * @author ueshin
  */
-trait HBaseAdmin extends Client {
-
-  val conf: Configuration
+trait HBaseAdmin {
+  self: Client =>
 
   implicit lazy val admin = new AHBaseAdmin(conf)
 }

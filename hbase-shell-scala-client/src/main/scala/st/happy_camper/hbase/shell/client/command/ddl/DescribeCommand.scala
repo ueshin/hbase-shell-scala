@@ -25,7 +25,7 @@ import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
  * @author ueshin
  */
 trait DescribeCommand {
-  self: HBaseAdmin =>
+  self: Client with HBaseAdmin =>
 
   implicit def describingTable(table: Table) = DescribeCommand.DescribingTable(table.tablename)
 }

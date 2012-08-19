@@ -30,7 +30,7 @@ import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
  * @author ueshin
  */
 trait CreateCommand {
-  self: HBaseAdmin =>
+  self: Client with HBaseAdmin =>
 
   implicit def creatingTable(table: Table) = CreateCommand.CreatingTable(table.tablename)
 }

@@ -26,7 +26,7 @@ import org.apache.hadoop.hbase.HTableDescriptor
  * @author ueshin
  */
 trait ListCommand {
-  self: HBaseAdmin =>
+  self: Client with HBaseAdmin =>
 
   /**
    * Returns table list.

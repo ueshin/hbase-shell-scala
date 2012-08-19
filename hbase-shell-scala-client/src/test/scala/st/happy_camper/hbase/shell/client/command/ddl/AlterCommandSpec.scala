@@ -65,7 +65,7 @@ class AlterCommandSpec extends Specification {
     testingUtility.shutdownMiniCluster
   }
 
-  trait Context extends BeforeAfter with HBaseAdmin with AlterCommand with EnableCommand with DisableCommand with DescribeCommand {
+  trait Context extends BeforeAfter with Client with HBaseAdmin with AlterCommand with EnableCommand with DisableCommand with DescribeCommand {
 
     val conf = testingUtility.getConfiguration()
 

@@ -15,22 +15,31 @@
  */
 package st.happy_camper.hbase.shell
 package client
-package command.ddl
+package command.dml
 
 import org.apache.hadoop.hbase.HBaseTestingUtility
+import org.apache.hadoop.hbase.HColumnDescriptor
+import org.apache.hadoop.hbase.HTableDescriptor
+import org.apache.hadoop.hbase.client.Scan
+import org.apache.hadoop.hbase.coprocessor.BaseEndpointCoprocessor
 import org.junit.runner.RunWith
 import org.specs2.mutable.BeforeAfter
 import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
 
+import st.happy_camper.hbase.shell.client.Client
+import st.happy_camper.hbase.shell.client.HTable
+import st.happy_camper.hbase.shell.coprocessor.protocol.RowCountProtocol
+import st.happy_camper.hbase.shell.toBytes
+
 /**
- * A spec for {@link ListCommand}
+ * A test for {@link CountCommand}.
  * @author ueshin
  */
 @RunWith(classOf[JUnitRunner])
-object ListCommandSpecTest extends ListCommandSpec
+object CountCommandSpecTest extends CountCommandSpec
 
-class ListCommandSpec extends Specification {
+class CountCommandSpec extends Specification {
 
   val testingUtility = new HBaseTestingUtility()
 
@@ -38,12 +47,11 @@ class ListCommandSpec extends Specification {
     testingUtility.startMiniCluster
   }
 
-  "ListCommand" should {
+  "CountCommand" should {
 
-    "list tables" in new Context {
-      val tables = list
-      tables.size must equalTo(1)
-      tables(0).getNameAsString must equalTo("test")
+    "count rows" in new Context {
+      val result = table("test").count
+      result must equalTo(10L)
     }
   }
 
@@ -51,17 +59,24 @@ class ListCommandSpec extends Specification {
     testingUtility.shutdownMiniCluster
   }
 
-  trait Context extends BeforeAfter with Client with HBaseAdmin with ListCommand {
+  trait Context extends BeforeAfter with Client with HTable with CountCommand {
 
     val conf = testingUtility.getConfiguration()
 
     def before = {
-      testingUtility.createTable("test", "family")
+      val table = new HTableDescriptor("test")
+      table.addFamily(new HColumnDescriptor("family"))
+      table.addCoprocessor(classOf[RowCountEndpoint].getName)
+      testingUtility.getHBaseAdmin.createTable(table)
     }
 
     def after = {
-      admin.close()
       testingUtility.deleteTable("test")
     }
   }
+}
+
+class RowCountEndpoint extends BaseEndpointCoprocessor
+    with RowCountProtocol {
+  override def count(implicit scan: Scan): Long = 10L
 }
