@@ -8,7 +8,6 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>st.happy_camper.hbase</groupId>
 	<artifactId>hbase-shell-scala-client</artifactId>
 	<packaging>jar</packaging>
 	<name>hbase-shell-scala-client</name>
@@ -72,14 +71,22 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>st.happy_camper.hbase</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>hbase-shell-scala-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>st.happy_camper.hbase</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>hbase-shell-scala-coprocessor-protocol</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-compiler</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>jline</artifactId>
 		</dependency>
 	</dependencies>
 

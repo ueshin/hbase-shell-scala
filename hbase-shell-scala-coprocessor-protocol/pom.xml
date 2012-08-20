@@ -8,7 +8,6 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>st.happy_camper.hbase</groupId>
 	<artifactId>hbase-shell-scala-coprocessor-protocol</artifactId>
 	<packaging>jar</packaging>
 	<name>hbase-shell-scala-coprocessor-protocol</name>
@@ -21,7 +20,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>st.happy_camper.hbase</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>hbase-shell-scala-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>

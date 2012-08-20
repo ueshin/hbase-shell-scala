@@ -8,7 +8,6 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>st.happy_camper.hbase</groupId>
 	<artifactId>hbase-shell-scala-core</artifactId>
 	<packaging>jar</packaging>
 	<name>hbase-shell-scala-core</name>
