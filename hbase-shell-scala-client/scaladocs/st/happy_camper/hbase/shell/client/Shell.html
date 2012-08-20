@@ -14,7 +14,7 @@
         </head>
         <body onload="sh_highlightDocument('../lib/', '.min.js');" class="type">
       <div id="definition">
-        <a title="Go to companion" href="Shell$.html"><img src="../../../../../lib/class_to_object_big.png" /></a>
+        <a title="Go to companion" href="Shell$.html"><img src="../../../../../lib/trait_to_object_big.png" /></a>
         <p id="owner"><a name="st" class="extype" href="../../../../package.html">st</a>.<a name="st.happy_camper" class="extype" href="../../../package.html">happy_camper</a>.<a name="st.happy_camper.hbase" class="extype" href="../../package.html">hbase</a>.<a name="st.happy_camper.hbase.shell" class="extype" href="../package.html">shell</a>.<a name="st.happy_camper.hbase.shell.client" class="extype" href="package.html">client</a></p>
         <h1><a title="Go to companion" href="Shell$.html">Shell</a></h1>
       </div>
@@ -22,16 +22,16 @@
       <h4 class="signature" id="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">Shell</span><span class="result"> extends <a name="st.happy_camper.hbase.shell.client.HBaseAdminShell" class="extype" href="HBaseAdminShell.html">HBaseAdminShell</a></span>
+        <span class="name">Shell</span><span class="result"> extends <a name="st.happy_camper.hbase.shell.client.Client" class="extype" href="Client.html">Client</a> with <a name="st.happy_camper.hbase.shell.client.HBaseAdminShell" class="extype" href="HBaseAdminShell.html">HBaseAdminShell</a> with <a name="st.happy_camper.hbase.shell.client.HTableShell" class="extype" href="HTableShell.html">HTableShell</a></span>
       </span>
       </h4>
       
       <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Represents HBase shell.</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a name="st.happy_camper.hbase.shell.client.HBaseAdminShell" class="extype" href="HBaseAdminShell.html">HBaseAdminShell</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.AlterCommand" class="extype" href="command/ddl/AlterCommand.html">AlterCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.DropCommand" class="extype" href="command/ddl/DropCommand.html">DropCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.DisableCommand" class="extype" href="command/ddl/DisableCommand.html">DisableCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.EnableCommand" class="extype" href="command/ddl/EnableCommand.html">EnableCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.CreateCommand" class="extype" href="command/ddl/CreateCommand.html">CreateCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.DescribeCommand" class="extype" href="command/ddl/DescribeCommand.html">DescribeCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.ListCommand" class="extype" href="command/ddl/ListCommand.html">ListCommand</a>, <a name="st.happy_camper.hbase.shell.client.HBaseAdmin" class="extype" href="HBaseAdmin.html">HBaseAdmin</a>, <a name="st.happy_camper.hbase.shell.client.Client" class="extype" href="Client.html">Client</a>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
+          <div class="superTypes hiddenContent"><a name="st.happy_camper.hbase.shell.client.HTableShell" class="extype" href="HTableShell.html">HTableShell</a>, <a name="st.happy_camper.hbase.shell.client.command.dml.CountCommand" class="extype" href="command/dml/CountCommand.html">CountCommand</a>, <a name="st.happy_camper.hbase.shell.client.HTable" class="extype" href="HTable.html">HTable</a>, <a name="st.happy_camper.hbase.shell.client.HBaseAdminShell" class="extype" href="HBaseAdminShell.html">HBaseAdminShell</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.AlterCommand" class="extype" href="command/ddl/AlterCommand.html">AlterCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.DropCommand" class="extype" href="command/ddl/DropCommand.html">DropCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.DisableCommand" class="extype" href="command/ddl/DisableCommand.html">DisableCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.EnableCommand" class="extype" href="command/ddl/EnableCommand.html">EnableCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.CreateCommand" class="extype" href="command/ddl/CreateCommand.html">CreateCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.DescribeCommand" class="extype" href="command/ddl/DescribeCommand.html">DescribeCommand</a>, <a name="st.happy_camper.hbase.shell.client.command.ddl.ListCommand" class="extype" href="command/ddl/ListCommand.html">ListCommand</a>, <a name="st.happy_camper.hbase.shell.client.HBaseAdmin" class="extype" href="HBaseAdmin.html">HBaseAdmin</a>, <a name="st.happy_camper.hbase.shell.client.Client" class="extype" href="Client.html">Client</a>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
         </div><div class="toggleContainer block">
           <span class="toggle">Known Subclasses</span>
           <div class="subClasses hiddenContent"><a name="st.happy_camper.hbase.shell.client.Shell" class="extype" href="Shell$.html">Shell</a></div>
@@ -48,7 +48,7 @@
               <span class="filtertype">Inherited</span>
               <ol><li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li></ol>
-              <ol id="linearization"><li name="st.happy_camper.hbase.shell.client.Shell" class="in"><span>Shell</span></li><li name="st.happy_camper.hbase.shell.client.HBaseAdminShell" class="in"><span>HBaseAdminShell</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.AlterCommand" class="in"><span>AlterCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.DropCommand" class="in"><span>DropCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.DisableCommand" class="in"><span>DisableCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.EnableCommand" class="in"><span>EnableCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.CreateCommand" class="in"><span>CreateCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.DescribeCommand" class="in"><span>DescribeCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.ListCommand" class="in"><span>ListCommand</span></li><li name="st.happy_camper.hbase.shell.client.HBaseAdmin" class="in"><span>HBaseAdmin</span></li><li name="st.happy_camper.hbase.shell.client.Client" class="in"><span>Client</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              <ol id="linearization"><li name="st.happy_camper.hbase.shell.client.Shell" class="in"><span>Shell</span></li><li name="st.happy_camper.hbase.shell.client.HTableShell" class="in"><span>HTableShell</span></li><li name="st.happy_camper.hbase.shell.client.command.dml.CountCommand" class="in"><span>CountCommand</span></li><li name="st.happy_camper.hbase.shell.client.HTable" class="in"><span>HTable</span></li><li name="st.happy_camper.hbase.shell.client.HBaseAdminShell" class="in"><span>HBaseAdminShell</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.AlterCommand" class="in"><span>AlterCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.DropCommand" class="in"><span>DropCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.DisableCommand" class="in"><span>DisableCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.EnableCommand" class="in"><span>EnableCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.CreateCommand" class="in"><span>CreateCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.DescribeCommand" class="in"><span>DescribeCommand</span></li><li name="st.happy_camper.hbase.shell.client.command.ddl.ListCommand" class="in"><span>ListCommand</span></li><li name="st.happy_camper.hbase.shell.client.HBaseAdmin" class="in"><span>HBaseAdmin</span></li><li name="st.happy_camper.hbase.shell.client.Client" class="in"><span>Client</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
             </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -58,29 +58,29 @@
 
       <div id="template">
         <div id="allMembers">
-        <div class="members" id="constructors">
-              <h3>Instance Constructors</h3>
-              <ol><li visbl="pub" name="st.happy_camper.hbase.shell.client.Shell#this" data-isabs="false">
-      <a id="this:Shell"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
-      </span>
-      <span class="symbol">
-        <span class="name">Shell</span><span class="params">(<span name="conf">conf: <span name="org.apache.hadoop.conf.Configuration" class="extype">Configuration</span></span>)</span>
-      </span>
-      </h4>
-      
-    </li></ol>
-            </div>
-
         
 
         
 
         <div class="values members" id="values">
-              <h3>Value Members</h3>
+              <h3>Abstract Value Members</h3>
+              <ol><li visbl="pub" name="st.happy_camper.hbase.shell.client.Client#conf" data-isabs="true">
+      <a id="conf:Configuration"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">implicit abstract </span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">conf</span><span class="result">: <span name="org.apache.hadoop.conf.Configuration" class="extype">Configuration</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.client.Client" class="extype" href="Client.html">Client</a></dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div class="values members" id="values">
+              <h3>Concrete Value Members</h3>
               <ol><li visbl="pub" name="scala.AnyRef#!=" data-isabs="false">
       <a id="!=(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -192,18 +192,18 @@
                 <span class="name">@throws</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.client.Shell#conf" data-isabs="false">
-      <a id="conf:Configuration"></a>
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.client.command.dml.CountCommand#countingTable" data-isabs="false">
+      <a id="countingTable(Table):CountingTable"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
+        <span class="modifier">implicit </span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">conf</span><span class="result">: <span name="org.apache.hadoop.conf.Configuration" class="extype">Configuration</span></span>
+        <span class="name">countingTable</span><span class="params">(<span name="table">table: <a name="st.happy_camper.hbase.shell.client.package.Table" class="extype" href="package$$Table.html">Table</a></span>)</span><span class="result">: <a name="st.happy_camper.hbase.shell.client.command.dml.CountCommand.CountingTable" class="extype" href="command/dml/CountCommand$$CountingTable.html">CountingTable</a></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.client.Shell" class="extype" href="">Shell</a> → <a name="st.happy_camper.hbase.shell.client.HBaseAdmin" class="extype" href="HBaseAdmin.html">HBaseAdmin</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.client.command.dml.CountCommand" class="extype" href="command/dml/CountCommand.html">CountCommand</a></dd></dl></div>
     </li><li visbl="pub" name="st.happy_camper.hbase.shell.client.command.ddl.CreateCommand#creatingTable" data-isabs="false">
       <a id="creatingTable(Table):CreatingTable[Nothing]"></a>
       <h4 class="signature">
@@ -477,7 +477,13 @@
         </div>
 
         <div id="inheritedMembers">
-        <div name="st.happy_camper.hbase.shell.client.HBaseAdminShell" class="parent">
+        <div name="st.happy_camper.hbase.shell.client.HTableShell" class="parent">
+              <h3>Inherited from <a name="st.happy_camper.hbase.shell.client.HTableShell" class="extype" href="HTableShell.html">HTableShell</a></h3>
+            </div><div name="st.happy_camper.hbase.shell.client.command.dml.CountCommand" class="parent">
+              <h3>Inherited from <a name="st.happy_camper.hbase.shell.client.command.dml.CountCommand" class="extype" href="command/dml/CountCommand.html">CountCommand</a></h3>
+            </div><div name="st.happy_camper.hbase.shell.client.HTable" class="parent">
+              <h3>Inherited from <a name="st.happy_camper.hbase.shell.client.HTable" class="extype" href="HTable.html">HTable</a></h3>
+            </div><div name="st.happy_camper.hbase.shell.client.HBaseAdminShell" class="parent">
               <h3>Inherited from <a name="st.happy_camper.hbase.shell.client.HBaseAdminShell" class="extype" href="HBaseAdminShell.html">HBaseAdminShell</a></h3>
             </div><div name="st.happy_camper.hbase.shell.client.command.ddl.AlterCommand" class="parent">
               <h3>Inherited from <a name="st.happy_camper.hbase.shell.client.command.ddl.AlterCommand" class="extype" href="command/ddl/AlterCommand.html">AlterCommand</a></h3>

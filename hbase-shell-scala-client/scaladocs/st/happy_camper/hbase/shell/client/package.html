@@ -80,7 +80,7 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="HBaseAdmin.html"><span class="name">HBaseAdmin</span></a><span class="result"> extends Client</span>
+        <a href="HBaseAdmin.html"><span class="name">HBaseAdmin</span></a><span class="result"> extends AnyRef</span>
       </span>
       </h4>
       <p class="comment cmt">A trait of scala wrapper of class HBaseAdmin.</p>
@@ -96,15 +96,39 @@
       </span>
       </h4>
       <p class="comment cmt">Represents HBase admin shell.</p>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.client.Shell" data-isabs="false">
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.client.HTable" data-isabs="true">
+      <a id="HTable:HTable"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="HTable.html"><span class="name">HTable</span></a><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A trait of scala wrapper of class HTable.</p>
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.client.HTableShell" data-isabs="true">
+      <a id="HTableShell:HTableShell"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="HTableShell.html"><span class="name">HTableShell</span></a><span class="result"> extends HTable with CountCommand</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents HTable shell.</p>
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.client.Shell" data-isabs="true">
       <a id="Shell:Shell"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="Shell.html"><span class="name">Shell</span></a><span class="result"> extends HBaseAdminShell</span>
+        <a href="Shell.html"><span class="name">Shell</span></a><span class="result"> extends Client with HBaseAdminShell with HTableShell</span>
       </span>
       </h4>
       <p class="comment cmt">Represents HBase shell.</p>
@@ -187,6 +211,32 @@
       </span>
       </h4>
       
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.client.package#coprocessorCall" data-isabs="false">
+      <a id="coprocessorCall[P&lt;:CoprocessorProtocol, R](Array[Byte],Array[Byte],Array[Byte])((P) ⇒ R)(Configuration,Manifest[P]):Map[Array[Byte], R]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">coprocessorCall</span><span class="tparams">[<span name="P">P &lt;: <span name="org.apache.hadoop.hbase.ipc.CoprocessorProtocol" class="extype">CoprocessorProtocol</span></span>, <span name="R">R</span>]</span><span class="params">(<span name="tablename">tablename: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>, <span name="startKey">startKey: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>] = <span class="symbol"><span class="name"><a href="../../../../../org/package.html">HConstants.EMPTY_START_ROW</a></span></span></span>, <span name="endKey">endKey: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>] = <span class="symbol"><span class="name"><a href="../../../../../org/package.html">HConstants.EMPTY_END_ROW</a></span></span></span>)</span><span class="params">(<span name="call">call: (P) ⇒ R</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="conf">conf: <span name="org.apache.hadoop.conf.Configuration" class="extype">Configuration</span></span>, <span name="manifest">manifest: Manifest[P]</span>)</span><span class="result">: Map[<span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>], R]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Calls a coprocessor endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>Calls a coprocessor endpoint.</p></div><dl class="paramcmts block"><dt class="param">tablename</dt><dd class="cmt"><p>the target table name</p></dd><dt class="param">startKey</dt><dd class="cmt"><p>the start key of the range of the target row keys</p></dd><dt class="param">endKey</dt><dd class="cmt"><p>the end key of the range of the target row keys</p></dd><dt class="param">call</dt><dd class="cmt"><p>coprocessor call block</p></dd><dt class="param">conf</dt><dd class="cmt"><p>implicit configuration</p></dd><dt class="param">manifest</dt><dd class="cmt"><p>implicit manifest</p></dd><dt>returns</dt><dd class="cmt"><p>the result map (region: Array[Byte] -&gt; result: R)
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.client.package" class="extype" href="package$.html">package</a></dd></dl></div>
+    </li><li visbl="pub" name="st.happy_camper.hbase.shell.client.package#coprocessorExec" data-isabs="false">
+      <a id="coprocessorExec[P&lt;:CoprocessorProtocol, R](Array[Byte],Array[Byte],Array[Byte],(P) ⇒ R,(Array[Byte], Array[Byte], R) ⇒ Unit)(Configuration,Manifest[P]):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">coprocessorExec</span><span class="tparams">[<span name="P">P &lt;: <span name="org.apache.hadoop.hbase.ipc.CoprocessorProtocol" class="extype">CoprocessorProtocol</span></span>, <span name="R">R</span>]</span><span class="params">(<span name="tablename">tablename: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>, <span name="startKey">startKey: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>, <span name="endKey">endKey: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>, <span name="call">call: (P) ⇒ R</span>, <span name="callback">callback: (<span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>], <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>], R) ⇒ <span name="scala.Unit" class="extype">Unit</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="conf">conf: <span name="org.apache.hadoop.conf.Configuration" class="extype">Configuration</span></span>, <span name="manifest">manifest: Manifest[P]</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Executes a coprocessor endpoint.</p><div class="fullcomment"><div class="comment cmt"><p>Executes a coprocessor endpoint.</p></div><dl class="paramcmts block"><dt class="param">tablename</dt><dd class="cmt"><p>the target table name</p></dd><dt class="param">startKey</dt><dd class="cmt"><p>the start key of the range of the target row keys</p></dd><dt class="param">endKey</dt><dd class="cmt"><p>the end key of the range of the target row keys</p></dd><dt class="param">call</dt><dd class="cmt"><p>coprocessor call block</p></dd><dt class="param">callback</dt><dd class="cmt"><p>coprocessor callback</p></dd><dt class="param">conf</dt><dd class="cmt"><p>implicit configuration</p></dd><dt class="param">manifest</dt><dd class="cmt"><p>implicit manifest
+</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.client.package" class="extype" href="package$.html">package</a></dd></dl></div>
     </li><li visbl="prt" name="st.happy_camper.hbase.shell.client.package#modifyColumnAttributes" data-isabs="false">
       <a id="modifyColumnAttributes(HColumnDescriptor,ColumnAttribute*):Unit"></a>
       <h4 class="signature">
@@ -198,9 +248,7 @@
         <span class="name">modifyColumnAttributes</span><span class="params">(<span name="column">column: <span name="org.apache.hadoop.hbase.HColumnDescriptor" class="extype">HColumnDescriptor</span></span>, <span name="attributes">attributes: <a name="st.happy_camper.hbase.shell.client.package.ColumnAttribute" class="extype" href="package$$ColumnAttribute.html">ColumnAttribute</a>*</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
       </span>
       </h4>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">attributes</dt><dd class="cmt"><p>
-@return
-</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.client.package" class="extype" href="package$.html">package</a></dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.client.package" class="extype" href="package$.html">package</a></dd></dl></div>
     </li></ol>
             </div>
 
