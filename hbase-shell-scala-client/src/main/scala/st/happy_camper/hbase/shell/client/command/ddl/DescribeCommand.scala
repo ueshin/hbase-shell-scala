@@ -17,8 +17,8 @@ package st.happy_camper.hbase.shell
 package client
 package command.ddl
 
-import org.apache.hadoop.hbase.HTableDescriptor
 import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
+import org.apache.hadoop.hbase.HTableDescriptor
 
 /**
  * A trait to handle describe command.

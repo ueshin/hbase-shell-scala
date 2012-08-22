@@ -17,14 +17,14 @@ package st.happy_camper.hbase.shell
 
 import java.util.ArrayList
 
-import scala.collection.JavaConversions.asScalaBuffer
+import scala.collection.JavaConversions._
 
-import org.apache.hadoop.hbase.CoprocessorEnvironment
-import org.apache.hadoop.hbase.KeyValue
 import org.apache.hadoop.hbase.coprocessor.MasterCoprocessorEnvironment
 import org.apache.hadoop.hbase.coprocessor.RegionCoprocessorEnvironment
 import org.apache.hadoop.hbase.coprocessor.WALCoprocessorEnvironment
 import org.apache.hadoop.hbase.regionserver.RegionScanner
+import org.apache.hadoop.hbase.CoprocessorEnvironment
+import org.apache.hadoop.hbase.KeyValue
 
 /**
  * A coprocessor package object.
@@ -73,7 +73,7 @@ package object coprocessor {
   implicit def toAugmentRegionScanner(scanner: RegionScanner) = new AugmentRegionScanner(scanner)
 
   /**
-   * Casts env from CoprocessorEnvironment to CoprocessorEnvironment.
+   * Casts env from CoprocessorEnvironment to RegionCoprocessorEnvironment.
    * @param env the env
    * @return the casted env
    */
@@ -82,7 +82,7 @@ package object coprocessor {
   }
 
   /**
-   * Casts env from CoprocessorEnvironment to WALCoprocessorEnvironment.
+   * Casts env from CoprocessorEnvironment to MasterCoprocessorEnvironment.
    * @param env the env
    * @return the casted env
    */

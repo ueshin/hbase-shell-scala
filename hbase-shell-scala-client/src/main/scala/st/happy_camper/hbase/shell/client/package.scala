@@ -15,16 +15,16 @@
  */
 package st.happy_camper.hbase.shell
 
-import scala.collection.JavaConversions.mapAsScalaMap
+import scala.collection.JavaConversions._
 
 import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.hbase.HColumnDescriptor
-import org.apache.hadoop.hbase.HConstants
-import org.apache.hadoop.hbase.client.{ HTable => AHTable }
 import org.apache.hadoop.hbase.client.coprocessor.Batch
+import org.apache.hadoop.hbase.client.{ HTable => AHTable }
 import org.apache.hadoop.hbase.io.hfile.Compression.Algorithm
 import org.apache.hadoop.hbase.ipc.CoprocessorProtocol
 import org.apache.hadoop.hbase.regionserver.StoreFile
+import org.apache.hadoop.hbase.HColumnDescriptor
+import org.apache.hadoop.hbase.HConstants
 
 /**
  * A client package object.

@@ -16,28 +16,25 @@
 package st.happy_camper.hbase.shell
 package coprocessor.handler
 
-import scala.collection.JavaConversions.mapAsScalaMap
-import scala.collection.JavaConversions.seqAsJavaList
+import scala.collection.JavaConversions._
 
+import org.apache.hadoop.hbase.client.coprocessor.Batch
+import org.apache.hadoop.hbase.client.HTable
+import org.apache.hadoop.hbase.client.Put
+import org.apache.hadoop.hbase.client.Scan
+import org.apache.hadoop.hbase.coprocessor.BaseEndpointCoprocessor
 import org.apache.hadoop.hbase.HBaseTestingUtility
 import org.apache.hadoop.hbase.HColumnDescriptor
 import org.apache.hadoop.hbase.HConstants
 import org.apache.hadoop.hbase.HTableDescriptor
-import org.apache.hadoop.hbase.client.HTable
-import org.apache.hadoop.hbase.client.Put
-import org.apache.hadoop.hbase.client.Scan
-import org.apache.hadoop.hbase.client.coprocessor.Batch
-import org.apache.hadoop.hbase.coprocessor.BaseEndpointCoprocessor
-import org.junit.runner.RunWith
-import org.specs2.mutable.BeforeAfter
-import org.specs2.mutable.Specification
-import org.specs2.runner.JUnitRunner
+import org.junit.runner._
+import org.specs2.mutable._
+import org.specs2.runner._
 
 import st.happy_camper.hbase.shell.coprocessor.protocol.RowCountProtocol
-import st.happy_camper.hbase.shell.toBytes
 
 /**
- * A test for {@link RowCountProtocolHandler}.
+ * A spec for {@link RowCountProtocolHandler}.
  * @author ueshin
  */
 @RunWith(classOf[JUnitRunner])

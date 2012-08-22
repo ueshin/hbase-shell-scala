@@ -15,8 +15,8 @@
  */
 package st.happy_camper.hbase.shell.client
 
-import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.hbase.HBaseConfiguration
+
 import st.happy_camper.hbase.shell.client.command.ddl.AlterCommand
 import st.happy_camper.hbase.shell.client.command.ddl.CreateCommand
 import st.happy_camper.hbase.shell.client.command.ddl.DescribeCommand

@@ -17,23 +17,19 @@ package st.happy_camper.hbase.shell
 package client
 package command.dml
 
+import org.apache.hadoop.hbase.client.Scan
+import org.apache.hadoop.hbase.coprocessor.BaseEndpointCoprocessor
 import org.apache.hadoop.hbase.HBaseTestingUtility
 import org.apache.hadoop.hbase.HColumnDescriptor
 import org.apache.hadoop.hbase.HTableDescriptor
-import org.apache.hadoop.hbase.client.Scan
-import org.apache.hadoop.hbase.coprocessor.BaseEndpointCoprocessor
-import org.junit.runner.RunWith
-import org.specs2.mutable.BeforeAfter
-import org.specs2.mutable.Specification
-import org.specs2.runner.JUnitRunner
+import org.junit.runner._
+import org.specs2.mutable._
+import org.specs2.runner._
 
-import st.happy_camper.hbase.shell.client.Client
-import st.happy_camper.hbase.shell.client.HTable
 import st.happy_camper.hbase.shell.coprocessor.protocol.RowCountProtocol
-import st.happy_camper.hbase.shell.toBytes
 
 /**
- * A test for {@link CountCommand}.
+ * A spec for {@link CountCommand}.
  * @author ueshin
  */
 @RunWith(classOf[JUnitRunner])

@@ -17,13 +17,16 @@ package st.happy_camper.hbase.shell
 package client
 package command.ddl
 
-import scala.collection.JavaConversions.mapAsJavaMap
+import scala.collection.JavaConversions._
 
 import org.apache.hadoop.fs.Path
+import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
 import org.apache.hadoop.hbase.Coprocessor
 import org.apache.hadoop.hbase.HColumnDescriptor
 import org.apache.hadoop.hbase.HTableDescriptor
-import org.apache.hadoop.hbase.client.{ HBaseAdmin => AHBaseAdmin }
+
+import st.happy_camper.hbase.shell.client.Client
+import st.happy_camper.hbase.shell.client.HBaseAdmin
 
 /**
  * A trait to handle alter commands.

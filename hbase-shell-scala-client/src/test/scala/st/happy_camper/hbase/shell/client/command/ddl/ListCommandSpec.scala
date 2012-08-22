@@ -18,13 +18,12 @@ package client
 package command.ddl
 
 import org.apache.hadoop.hbase.HBaseTestingUtility
-import org.junit.runner.RunWith
-import org.specs2.mutable.BeforeAfter
-import org.specs2.mutable.Specification
-import org.specs2.runner.JUnitRunner
+import org.junit.runner._
+import org.specs2.mutable._
+import org.specs2.runner._
 
 /**
- * A spec for {@link ListCommand}
+ * A spec for {@link ListCommand}.
  * @author ueshin
  */
 @RunWith(classOf[JUnitRunner])
