@@ -24,66 +24,24 @@ import org.apache.hadoop.hbase.util.Bytes
 package object shell {
 
   /**
-   * Represents an augmented byte array.
+   * Represents a converter from byte array to some value.
    * @author ueshin
    */
-  class AugmentByteArray(bytes: Array[Byte]) {
+  private[shell] sealed class BytesToA(bytes: Array[Byte]) {
 
     /**
-     * Returns the value as String.
-     * @return the String value
+     * Converts byte array to some value.
+     * @return the converted value
      */
-    def asString() = Bytes.toString(bytes)
-
-    /**
-     * Returns the value as Boolean.
-     * @return the Boolean value
-     */
-    def asBoolean() = Bytes.toBoolean(bytes)
-
-    /**
-     * Returns the value as Long.
-     * @return the Long value
-     */
-    def asLong() = Bytes.toLong(bytes)
-
-    /**
-     * Returns the value as Float.
-     * @return the Float value
-     */
-    def asFloat() = Bytes.toFloat(bytes)
-
-    /**
-     * Returns the value as Double.
-     * @return the Double value
-     */
-    def asDouble() = Bytes.toDouble(bytes)
-
-    /**
-     * Returns the value as Int.
-     * @return the Int value
-     */
-    def asInt() = Bytes.toInt(bytes)
-
-    /**
-     * Returns the value as Short.
-     * @return the Short value
-     */
-    def asShort() = Bytes.toShort(bytes)
-
-    /**
-     * Returns the value as BigDecimal.
-     * @return the BigDecimal value
-     */
-    def asBigDecimal() = BigDecimal(Bytes.toBigDecimal(bytes))
+    def to[A: BytesTo] = implicitly[BytesTo[A]].to(bytes)
   }
 
   /**
-   * Returns AugmentByteArray instance.
+   * Returns BytesToA instance.
    * @param bytes the byte array
    * @return the instance
    */
-  implicit def toAugmentByteArray(bytes: Array[Byte]) = new AugmentByteArray(bytes)
+  implicit def toBytesToA(bytes: Array[Byte]) = new BytesToA(bytes)
 
   /**
    * Returns byte array of the String value.
