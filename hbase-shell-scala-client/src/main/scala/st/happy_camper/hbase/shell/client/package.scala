@@ -109,13 +109,15 @@ package object client {
     startKey: Array[Byte] = HConstants.EMPTY_START_ROW,
     endKey: Array[Byte] = HConstants.EMPTY_END_ROW)(call: P => R)(implicit conf: Configuration, manifest: Manifest[P]): Map[Array[Byte], R] = {
     val batchcall = call
-    val results = new AHTable(conf, tablename).coprocessorExec[P, R](
-      manifest.erasure.asInstanceOf[Class[P]],
-      startKey,
-      endKey,
-      new Batch.Call[P, R]() {
-        override def call(p: P): R = batchcall(p)
-      })
+    val results = using(new AHTable(conf, tablename)) {
+      _.coprocessorExec[P, R](
+        manifest.erasure.asInstanceOf[Class[P]],
+        startKey,
+        endKey,
+        new Batch.Call[P, R]() {
+          override def call(p: P): R = batchcall(p)
+        })
+    }
     results.toMap
   }
 
@@ -136,14 +138,16 @@ package object client {
     call: P => R,
     callback: (Array[Byte], Array[Byte], R) => Unit)(implicit conf: Configuration, manifest: Manifest[P]): Unit = {
     val batchcall = call
-    new AHTable(conf, tablename).coprocessorExec[P, R](
-      manifest.erasure.asInstanceOf[Class[P]],
-      startKey,
-      endKey,
-      new Batch.Call[P, R]() {
-        override def call(p: P): R = batchcall(p)
-      }, new Batch.Callback[R]() {
-        override def update(region: Array[Byte], row: Array[Byte], value: R) = callback(region, row, value)
-      })
+    using(new AHTable(conf, tablename)) {
+      _.coprocessorExec[P, R](
+        manifest.erasure.asInstanceOf[Class[P]],
+        startKey,
+        endKey,
+        new Batch.Call[P, R]() {
+          override def call(p: P): R = batchcall(p)
+        }, new Batch.Callback[R]() {
+          override def update(region: Array[Byte], row: Array[Byte], value: R) = callback(region, row, value)
+        })
+    }
   }
 }

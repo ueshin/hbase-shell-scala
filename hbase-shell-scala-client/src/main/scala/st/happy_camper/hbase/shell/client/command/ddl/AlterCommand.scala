@@ -25,9 +25,6 @@ import org.apache.hadoop.hbase.Coprocessor
 import org.apache.hadoop.hbase.HColumnDescriptor
 import org.apache.hadoop.hbase.HTableDescriptor
 
-import st.happy_camper.hbase.shell.client.Client
-import st.happy_camper.hbase.shell.client.HBaseAdmin
-
 /**
  * A trait to handle alter commands.
  * @author ueshin

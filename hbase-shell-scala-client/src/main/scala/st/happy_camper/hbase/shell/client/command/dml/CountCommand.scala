@@ -22,8 +22,6 @@ import java.util.concurrent.atomic.AtomicLong
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.hbase.client.Scan
 
-import st.happy_camper.hbase.shell.client.Client
-import st.happy_camper.hbase.shell.client.HTable
 import st.happy_camper.hbase.shell.coprocessor.protocol.RowCountProtocol
 
 /**
