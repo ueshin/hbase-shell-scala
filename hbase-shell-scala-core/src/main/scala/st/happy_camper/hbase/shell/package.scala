@@ -44,60 +44,32 @@ package object shell {
   implicit def toBytesToA(bytes: Array[Byte]) = new BytesToA(bytes)
 
   /**
-   * Returns byte array of the String value.
-   * @param s the String value
-   * @return the byte array
+   * Represents a converter from some value to byte array.
+   * @param <A> the type of the value
+   * @author ueshin
    */
-  implicit def toBytes(s: String) = Bytes.toBytes(s)
+  private[shell] sealed class AToBytes[A: ToBytes](a: A) {
+
+    /**
+     * Converts some value to byte array.
+     * @return the converted byte array
+     */
+    def bytes = implicitly[ToBytes[A]].bytes(a)
+  }
 
   /**
-   * Returns byte array of the Boolean value.
-   * @param b the Boolean value
-   * @return the byte array
+   * Returns AToBytes instance.
+   * @param a the value
+   * @return the instance
    */
-  implicit def toBytes(b: Boolean) = Bytes.toBytes(b)
+  implicit def toAToBytes[A: ToBytes](a: A) = new AToBytes(a)
 
   /**
-   * Returns byte array of the Long value.
-   * @param l the Long value
-   * @return the byte array
+   * Converts some value to byte array.
+   * @param a the some value
+   * @return the instance
    */
-  implicit def toBytes(l: Long) = Bytes.toBytes(l)
-
-  /**
-   * Returns byte array of the Float value.
-   * @param f the Float value
-   * @return the byte array
-   */
-  implicit def toBytes(f: Float) = Bytes.toBytes(f)
-
-  /**
-   * Returns byte array of the Double value.
-   * @param d the Double value
-   * @return the byte array
-   */
-  implicit def toBytes(d: Double) = Bytes.toBytes(d)
-
-  /**
-   * Returns byte array of the Int value.
-   * @param i the Int value
-   * @return the byte array
-   */
-  implicit def toBytes(i: Int) = Bytes.toBytes(i)
-
-  /**
-   * Returns byte array of the Short value.
-   * @param s the Short value
-   * @return the byte array
-   */
-  implicit def toBytes(s: Short) = Bytes.toBytes(s)
-
-  /**
-   * Returns byte array of the BigDecimal value.
-   * @param b the BigDecimal value
-   * @return the byte array
-   */
-  implicit def toBytes(b: BigDecimal) = Bytes.toBytes(b.underlying)
+  implicit def toBytes[A: ToBytes](a: A) = a.bytes
 
   /**
    * Represents entry point of loan pattern.
