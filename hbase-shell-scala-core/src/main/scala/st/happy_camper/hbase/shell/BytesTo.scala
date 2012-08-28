@@ -86,6 +86,14 @@ object BytesTo {
   }
 
   /**
+   * Represents a converter to Byte.
+   * @author ueshin
+   */
+  implicit object BytesToByte extends BytesTo[Byte] {
+    override def to(bytes: Array[Byte]) = bytes(0)
+  }
+
+  /**
    * Represents a converter to Short.
    * @author ueshin
    */

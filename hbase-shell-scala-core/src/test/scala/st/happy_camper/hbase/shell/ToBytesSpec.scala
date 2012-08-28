@@ -62,8 +62,13 @@ class ToBytesSpec extends Specification {
     }
 
     "convert Short to byte array" in {
-      1.asInstanceOf[Short].bytes must equalTo(Bytes.toBytes(1.asInstanceOf[Short]))
-      10.asInstanceOf[Short].bytes must equalTo(Bytes.toBytes(10.asInstanceOf[Short]))
+      1.toShort.bytes must equalTo(Bytes.toBytes(1.toShort))
+      10.toShort.bytes must equalTo(Bytes.toBytes(10.toShort))
+    }
+
+    "convert Byte to byte array" in {
+      1.toByte.bytes must equalTo(Array(1.toByte))
+      10.toByte.bytes must equalTo(Array(10.toByte))
     }
 
     "convert BigDecimal to byte array" in {

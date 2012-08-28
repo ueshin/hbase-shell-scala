@@ -89,6 +89,14 @@ object ToBytes {
   }
 
   /**
+   * Represents a convert from Byte.
+   * @author ueshin
+   */
+  implicit object ByteToBytes extends ToBytes[Byte] {
+    def bytes(a: Byte) = Array(a)
+  }
+
+  /**
    * Represents a convert from BigDecimal.
    * @author ueshin
    */
