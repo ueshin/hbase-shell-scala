@@ -36,12 +36,11 @@
 						<program>
 							<name>repl</name>
 							<mainClass>scala.tools.nsc.MainGenericRunner</mainClass>
-							<!-- 
 							<commandLineArguments>
+								<commandLineArgument>-Yrepl-sync</commandLineArgument>
 								<commandLineArgument>-i</commandLineArgument>
 								<commandLineArgument>"$BASEDIR"/bin/shbase.scala</commandLineArgument>
 							</commandLineArguments>
-							-->
 						</program>
 					</programs>
 				</configuration>
@@ -54,10 +53,8 @@
 						<phase>package</phase>
 						<configuration>
 							<target>
-								<copy file="${project.build.scriptSourceDirectory}/shbase"
-									todir="${assembleDirectory}/bin" />
-								<copy file="${project.build.sourceDirectory}/shbase.scala"
-									todir="${assembleDirectory}/bin" />
+								<copy file="${project.build.scriptSourceDirectory}/shbase" todir="${assembleDirectory}/bin" />
+								<copy file="${project.build.sourceDirectory}/shbase.scala" todir="${assembleDirectory}/bin" />
 							</target>
 						</configuration>
 						<goals>
