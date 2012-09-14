@@ -9,7 +9,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<inceptionYear>2011</inceptionYear>
-	<url>http://ueshin.github.com/hbase-shell-scala</url>
+	<url>http://happy-camper.st/hbase-shell-scala</url>
 	<description>HBase shell in Scala</description>
 	<licenses>
 		<license>
@@ -27,7 +27,7 @@
 			<id>ueshin</id>
 			<name>Takuya Ueshin</name>
 			<email>ueshin@happy-camper.st</email>
-			<url>http://ueshin.happy-camper.st/</url>
+			<url>http://happy-camper.st/</url>
 			<organization>Happy-Camper Street</organization>
 			<timezone>+9</timezone>
 		</developer>
@@ -45,12 +45,12 @@
 	<properties>
 		<hadoop.version>1.0.3</hadoop.version>
 		<hbase.version>0.94.1</hbase.version>
-		<scala.version>2.9.2</scala.version>
-		<scalaz.version>6.0.4</scalaz.version>
+		<scala.version>2.10.0-M7</scala.version>
+		<scalaz.version>7.0.0-M3</scalaz.version>
 		<slf4j.version>1.6.6</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
 		<junit.version>4.10</junit.version>
-		<specs2.version>1.11</specs2.version>
+		<specs2.version>1.12.1.1</specs2.version>
 		<mockito.version>1.9.0</mockito.version>
 
 		<assembleDirectory>${project.build.directory}/appassembler</assembleDirectory>
@@ -189,7 +189,7 @@
 							<plugin>
 								<groupId>net.alchim31.maven</groupId>
 								<artifactId>scala-maven-plugin</artifactId>
-								<version>3.0.2</version>
+								<version>3.1.0</version>
 							</plugin>
 							<plugin>
 								<groupId>org.apache.maven.plugins</groupId>
@@ -207,7 +207,7 @@
 				<plugin>
 					<groupId>net.alchim31.maven</groupId>
 					<artifactId>scala-maven-plugin</artifactId>
-					<version>3.0.2</version>
+					<version>3.1.0</version>
 					<executions>
 						<execution>
 							<goals>

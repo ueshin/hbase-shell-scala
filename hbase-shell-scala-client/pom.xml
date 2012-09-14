@@ -37,7 +37,6 @@
 							<name>repl</name>
 							<mainClass>scala.tools.nsc.MainGenericRunner</mainClass>
 							<commandLineArguments>
-								<commandLineArgument>-Yrepl-sync</commandLineArgument>
 								<commandLineArgument>-i</commandLineArgument>
 								<commandLineArgument>"$BASEDIR"/bin/shbase.scala</commandLineArgument>
 							</commandLineArguments>

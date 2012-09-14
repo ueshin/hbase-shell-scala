@@ -42,6 +42,8 @@ object RowCountProtocolHandlerSpecTest extends RowCountProtocolHandlerSpec
 
 class RowCountProtocolHandlerSpec extends Specification {
 
+  sequential
+
   val testingUtility = new HBaseTestingUtility()
 
   step {

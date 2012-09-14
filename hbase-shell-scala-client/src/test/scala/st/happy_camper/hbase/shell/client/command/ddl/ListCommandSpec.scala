@@ -31,6 +31,8 @@ object ListCommandSpecTest extends ListCommandSpec
 
 class ListCommandSpec extends Specification {
 
+  sequential
+
   val testingUtility = new HBaseTestingUtility()
 
   step {

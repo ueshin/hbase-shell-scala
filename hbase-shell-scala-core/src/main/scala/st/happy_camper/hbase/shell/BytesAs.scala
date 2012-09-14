@@ -21,91 +21,91 @@ import org.apache.hadoop.hbase.util.Bytes
  * A trait of a converter from bytes to some value.
  * @author ueshin
  */
-trait BytesTo[A] {
+trait BytesAs[A] {
 
   /**
-   * Converts byte array to some type.
+   * Treats byte array as some type.
    * @param bytes the byte array
    * @return the converted value
    */
-  def to(bytes: Array[Byte]): A
+  def as(bytes: Array[Byte]): A
 }
 
 /**
- * A companion object of trait {@link BytesTo}.
+ * A companion object of trait {@link BytesAs}.
  * @author ueshin
  */
-object BytesTo {
+object BytesAs {
 
   /**
    * Represents a converter to String.
    * @author ueshin
    */
-  implicit object BytesToString extends BytesTo[String] {
-    override def to(bytes: Array[Byte]) = Bytes.toString(bytes)
+  implicit object BytesAsString extends BytesAs[String] {
+    override def as(bytes: Array[Byte]) = Bytes.toString(bytes)
   }
 
   /**
    * Represents a converter to Boolean.
    * @author ueshin
    */
-  implicit object BytesToBoolean extends BytesTo[Boolean] {
-    override def to(bytes: Array[Byte]) = Bytes.toBoolean(bytes)
+  implicit object BytesAsBoolean extends BytesAs[Boolean] {
+    override def as(bytes: Array[Byte]) = Bytes.toBoolean(bytes)
   }
 
   /**
    * Represents a converter to Long.
    * @author ueshin
    */
-  implicit object BytesToLong extends BytesTo[Long] {
-    override def to(bytes: Array[Byte]) = Bytes.toLong(bytes)
+  implicit object BytesAsLong extends BytesAs[Long] {
+    override def as(bytes: Array[Byte]) = Bytes.toLong(bytes)
   }
 
   /**
    * Represents a converter to Float.
    * @author ueshin
    */
-  implicit object BytesToFloat extends BytesTo[Float] {
-    override def to(bytes: Array[Byte]) = Bytes.toFloat(bytes)
+  implicit object BytesAsFloat extends BytesAs[Float] {
+    override def as(bytes: Array[Byte]) = Bytes.toFloat(bytes)
   }
 
   /**
    * Represents a converter to Double.
    * @author ueshin
    */
-  implicit object BytesToDouble extends BytesTo[Double] {
-    override def to(bytes: Array[Byte]) = Bytes.toDouble(bytes)
+  implicit object BytesAsDouble extends BytesAs[Double] {
+    override def as(bytes: Array[Byte]) = Bytes.toDouble(bytes)
   }
 
   /**
    * Represents a converter to Int.
    * @author ueshin
    */
-  implicit object BytesToInt extends BytesTo[Int] {
-    override def to(bytes: Array[Byte]) = Bytes.toInt(bytes)
+  implicit object BytesAsInt extends BytesAs[Int] {
+    override def as(bytes: Array[Byte]) = Bytes.toInt(bytes)
   }
 
   /**
    * Represents a converter to Byte.
    * @author ueshin
    */
-  implicit object BytesToByte extends BytesTo[Byte] {
-    override def to(bytes: Array[Byte]) = bytes(0)
+  implicit object BytesAsByte extends BytesAs[Byte] {
+    override def as(bytes: Array[Byte]) = bytes(0)
   }
 
   /**
    * Represents a converter to Short.
    * @author ueshin
    */
-  implicit object BytesToShort extends BytesTo[Short] {
-    override def to(bytes: Array[Byte]) = Bytes.toShort(bytes)
+  implicit object BytesAsShort extends BytesAs[Short] {
+    override def as(bytes: Array[Byte]) = Bytes.toShort(bytes)
   }
 
   /**
    * Represents a converter to BigDecimal.
    * @author ueshin
    */
-  implicit object BytesToBigDecimal extends BytesTo[BigDecimal] {
-    override def to(bytes: Array[Byte]) = BigDecimal(Bytes.toBigDecimal(bytes))
+  implicit object BytesAsBigDecimal extends BytesAs[BigDecimal] {
+    override def as(bytes: Array[Byte]) = BigDecimal(Bytes.toBigDecimal(bytes))
   }
 }

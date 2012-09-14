@@ -37,6 +37,8 @@ object CountCommandSpecTest extends CountCommandSpec
 
 class CountCommandSpec extends Specification {
 
+  sequential
+
   val testingUtility = new HBaseTestingUtility()
 
   step {

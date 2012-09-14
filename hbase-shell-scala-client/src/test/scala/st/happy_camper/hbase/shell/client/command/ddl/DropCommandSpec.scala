@@ -31,6 +31,8 @@ object DropCommandSpecTest extends DropCommandSpec
 
 class DropCommandSpec extends Specification {
 
+  sequential
+
   val testingUtility = new HBaseTestingUtility()
 
   step {

@@ -31,6 +31,8 @@ object AlterCommandSpecTest extends AlterCommandSpec
 
 class AlterCommandSpec extends Specification {
 
+  sequential
+
   val testingUtility = new HBaseTestingUtility()
 
   step {

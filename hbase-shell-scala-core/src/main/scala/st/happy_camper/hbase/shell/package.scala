@@ -27,21 +27,21 @@ package object shell {
    * Represents a converter from byte array to some value.
    * @author ueshin
    */
-  private[shell] sealed class BytesToA(bytes: Array[Byte]) {
+  private[shell] sealed class BytesAsA(bytes: Array[Byte]) {
 
     /**
-     * Converts byte array to some value.
+     * Treats byte array as some value.
      * @return the converted value
      */
-    def to[A: BytesTo] = implicitly[BytesTo[A]].to(bytes)
+    def as[A: BytesAs] = implicitly[BytesAs[A]].as(bytes)
   }
 
   /**
-   * Returns BytesToA instance.
+   * Returns BytesAsA instance.
    * @param bytes the byte array
    * @return the instance
    */
-  implicit def toBytesToA(bytes: Array[Byte]) = new BytesToA(bytes)
+  implicit def toBytesAsA(bytes: Array[Byte]) = new BytesAsA(bytes)
 
   /**
    * Represents a converter from some value to byte array.
