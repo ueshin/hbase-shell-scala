@@ -2,24 +2,35 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
         <head>
-          <title>st.happy_camper.hbase.shell</title>
+          <title>shell - hbase-shell-scala-core 0.0.1-SNAPSHOT API - st.happy_camper.hbase.shell</title>
+          <meta name="description" content="shell - hbase - shell - scala - core 0.0.1 - SNAPSHOT API - st.happy camper.hbase.shell" />
+          <meta name="keywords" content="shell hbase shell scala core 0.0.1 SNAPSHOT API st.happy camper.hbase.shell" />
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
-      <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
-      <script type="text/javascript" src="../../../../lib/jquery.js"></script>
+      <link href="../../../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js" id="jquery-js"></script>
       <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
       <script type="text/javascript" src="../../../../lib/template.js"></script>
       <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../../../index.html';
+            var hash = 'st.happy_camper.hbase.shell.package';
+            window.location.href = url + '#' + hash;
+         }
+   	  </script>
     
         </head>
-        <body onload="sh_highlightDocument('../lib/', '.min.js');" class="value">
+        <body class="value">
       <div id="definition">
         <img src="../../../../lib/package_big.png" />
-        <p id="owner"><a name="st" class="extype" href="../../../package.html">st</a>.<a name="st.happy_camper" class="extype" href="../../package.html">happy_camper</a>.<a name="st.happy_camper.hbase" class="extype" href="../package.html">hbase</a></p>
+        <p id="owner"><a href="../../../package.html" class="extype" name="st">st</a>.<a href="../../package.html" class="extype" name="st.happy_camper">happy_camper</a>.<a href="../package.html" class="extype" name="st.happy_camper.hbase">hbase</a></p>
         <h1>shell</h1>
       </div>
 
-      <h4 class="signature" id="signature">
+      <h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">package</span>
@@ -29,13 +40,36 @@
       </span>
       </h4>
       
-      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>A shell package object.</p></div></div>
-    
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><p>A shell package object.</p></div><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+        </div></div>
+        
 
       <div id="mbrsel">
-        <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
-        
-        
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        <div id="order">
+              <span class="filtertype">Ordering</span>
+              <ol>
+                
+                <li class="alpha in"><span>Alphabetic</span></li>
+                <li class="inherit out"><span>By inheritance</span></li>
+              </ol>
+            </div>
+        <div id="ancestors">
+                <span class="filtertype">Inherited<br />
+                </span>
+                <ol id="linearization">
+                  <li class="in" name="st.happy_camper.hbase.shell"><span>shell</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                </ol>
+              </div><div id="ancestors">
+            <span class="filtertype"></span>
+            <ol>
+              <li class="hideall out"><span>Hide All</span></li>
+              <li class="showall in"><span>Show all</span></li>
+            </ol>
+            <a href="http://docs.scala-lang.org/overviews/scaladoc/usage.html#members" target="_blank">Learn more about member selection</a>
+          </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
             <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
@@ -46,165 +80,137 @@
         <div id="allMembers">
         
 
-        <div class="types members" id="types">
+        <div id="types" class="types members">
               <h3>Type Members</h3>
-              <ol><li visbl="pub" name="st.happy_camper.hbase.shell.package.AugmentByteArray" data-isabs="false">
-      <a id="AugmentByteArray:AugmentByteArray"></a>
+              <ol><li name="st.happy_camper.hbase.shell.BytesAs" visbl="pub" data-isabs="true" fullComment="no" group="No Group">
+      <a id="BytesAs[A]:BytesAs[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="package$$AugmentByteArray.html"><span class="name">AugmentByteArray</span></a><span class="result"> extends AnyRef</span>
+        <a href="BytesAs.html"><span class="name">BytesAs</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
       </span>
       </h4>
-      <p class="comment cmt">Represents an augmented byte array.</p>
+      <p class="comment cmt">A trait of a converter from bytes to some value.</p>
+    </li><li name="st.happy_camper.hbase.shell.ToBytes" visbl="pub" data-isabs="true" fullComment="no" group="No Group">
+      <a id="ToBytes[A]:ToBytes[A]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="ToBytes.html"><span class="name">ToBytes</span></a><span class="tparams">[<span name="A">A</span>]</span><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4>
+      <p class="comment cmt">A trait of a converter from some type to bytes.</p>
     </li></ol>
             </div>
 
         
 
-        <div class="values members" id="values">
+        <div id="values" class="values members">
               <h3>Value Members</h3>
-              <ol><li visbl="pub" name="st.happy_camper.hbase.shell.package#toAugmentByteArray" data-isabs="false">
-      <a id="toAugmentByteArray(Array[Byte]):AugmentByteArray"></a>
+              <ol><li name="st.happy_camper.hbase.shell.BytesAs" visbl="pub" data-isabs="false" fullComment="no" group="No Group">
+      <a id="BytesAs:BytesAs"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="BytesAs$.html"><span class="name">BytesAs</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">A companion object of trait <code> BytesAs</code>.</p>
+    </li><li name="st.happy_camper.hbase.shell.ToBytes" visbl="pub" data-isabs="false" fullComment="no" group="No Group">
+      <a id="ToBytes:ToBytes"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ToBytes$.html"><span class="name">ToBytes</span></a>
+      </span>
+      </h4>
+      <p class="comment cmt">A companion object of trait <code> ToBytes</code>.</p>
+    </li><li name="st.happy_camper.hbase.shell.package#toAToBytes" visbl="pub" data-isabs="false" fullComment="yes" group="No Group">
+      <a id="toAToBytes[A](A)(ToBytes[A]):AToBytes[A]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toAugmentByteArray</span><span class="params">(<span name="bytes">bytes: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>)</span><span class="result">: <a name="st.happy_camper.hbase.shell.package.AugmentByteArray" class="extype" href="package$$AugmentByteArray.html">AugmentByteArray</a></span>
+        <span class="name">toAToBytes</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="st.happy_camper.hbase.shell.toAToBytes.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="ToBytes.html" class="extype" name="st.happy_camper.hbase.shell.ToBytes">ToBytes</a>[<span class="extype" name="st.happy_camper.hbase.shell.toAToBytes.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="st.happy_camper.hbase.shell.AToBytes">AToBytes</span>[<span class="extype" name="st.happy_camper.hbase.shell.toAToBytes.A">A</span>]</span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Returns AugmentByteArray instance.</p><div class="fullcomment"><div class="comment cmt"><p>Returns AugmentByteArray instance.</p></div><dl class="paramcmts block"><dt class="param">bytes</dt><dd class="cmt"><p>the byte array</p></dd><dt>returns</dt><dd class="cmt"><p>the instance
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.package" class="extype" href="package$.html">package</a></dd></dl></div>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.package#toBytes" data-isabs="false">
-      <a id="toBytes(BigDecimal):Array[Byte]"></a>
+      <p class="shortcomment cmt">Returns AToBytes instance.</p><div class="fullcomment"><div class="comment cmt"><p>Returns AToBytes instance.</p></div><dl class="paramcmts block"><dt class="param">a</dt><dd class="cmt"><p>the value</p></dd><dt>returns</dt><dd class="cmt"><p>the instance
+</p></dd></dl></div>
+    </li><li name="st.happy_camper.hbase.shell.package#toBytes" visbl="pub" data-isabs="false" fullComment="yes" group="No Group">
+      <a id="toBytes[A](A)(ToBytes[A]):Array[Byte]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toBytes</span><span class="params">(<span name="b">b: BigDecimal</span>)</span><span class="result">: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>
+        <span class="name">toBytes</span><span class="tparams">[<span name="A">A</span>]</span><span class="params">(<span name="a">a: <span class="extype" name="st.happy_camper.hbase.shell.toBytes.A">A</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="ToBytes.html" class="extype" name="st.happy_camper.hbase.shell.ToBytes">ToBytes</a>[<span class="extype" name="st.happy_camper.hbase.shell.toBytes.A">A</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Byte">Byte</span>]</span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Returns byte array of the BigDecimal value.</p><div class="fullcomment"><div class="comment cmt"><p>Returns byte array of the BigDecimal value.</p></div><dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>the BigDecimal value</p></dd><dt>returns</dt><dd class="cmt"><p>the byte array
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.package" class="extype" href="package$.html">package</a></dd></dl></div>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.package#toBytes" data-isabs="false">
-      <a id="toBytes(Short):Array[Byte]"></a>
+      <p class="shortcomment cmt">Converts some value to byte array.</p><div class="fullcomment"><div class="comment cmt"><p>Converts some value to byte array.</p></div><dl class="paramcmts block"><dt class="param">a</dt><dd class="cmt"><p>the some value</p></dd><dt>returns</dt><dd class="cmt"><p>the instance
+</p></dd></dl></div>
+    </li><li name="st.happy_camper.hbase.shell.package#toBytesAsA" visbl="pub" data-isabs="false" fullComment="yes" group="No Group">
+      <a id="toBytesAsA(Array[Byte]):BytesAsA"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">toBytes</span><span class="params">(<span name="s">s: <span name="scala.Short" class="extype">Short</span></span>)</span><span class="result">: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>
+        <span class="name">toBytesAsA</span><span class="params">(<span name="bytes">bytes: <span class="extype" name="scala.Array">Array</span>[<span class="extype" name="scala.Byte">Byte</span>]</span>)</span><span class="result">: <span class="extype" name="st.happy_camper.hbase.shell.BytesAsA">BytesAsA</span></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Returns byte array of the Short value.</p><div class="fullcomment"><div class="comment cmt"><p>Returns byte array of the Short value.</p></div><dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>the Short value</p></dd><dt>returns</dt><dd class="cmt"><p>the byte array
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.package" class="extype" href="package$.html">package</a></dd></dl></div>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.package#toBytes" data-isabs="false">
-      <a id="toBytes(Int):Array[Byte]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toBytes</span><span class="params">(<span name="i">i: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="result">: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Returns byte array of the Int value.</p><div class="fullcomment"><div class="comment cmt"><p>Returns byte array of the Int value.</p></div><dl class="paramcmts block"><dt class="param">i</dt><dd class="cmt"><p>the Int value</p></dd><dt>returns</dt><dd class="cmt"><p>the byte array
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.package" class="extype" href="package$.html">package</a></dd></dl></div>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.package#toBytes" data-isabs="false">
-      <a id="toBytes(Double):Array[Byte]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toBytes</span><span class="params">(<span name="d">d: <span name="scala.Double" class="extype">Double</span></span>)</span><span class="result">: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Returns byte array of the Double value.</p><div class="fullcomment"><div class="comment cmt"><p>Returns byte array of the Double value.</p></div><dl class="paramcmts block"><dt class="param">d</dt><dd class="cmt"><p>the Double value</p></dd><dt>returns</dt><dd class="cmt"><p>the byte array
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.package" class="extype" href="package$.html">package</a></dd></dl></div>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.package#toBytes" data-isabs="false">
-      <a id="toBytes(Float):Array[Byte]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toBytes</span><span class="params">(<span name="f">f: <span name="scala.Float" class="extype">Float</span></span>)</span><span class="result">: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Returns byte array of the Float value.</p><div class="fullcomment"><div class="comment cmt"><p>Returns byte array of the Float value.</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>the Float value</p></dd><dt>returns</dt><dd class="cmt"><p>the byte array
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.package" class="extype" href="package$.html">package</a></dd></dl></div>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.package#toBytes" data-isabs="false">
-      <a id="toBytes(Long):Array[Byte]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toBytes</span><span class="params">(<span name="l">l: <span name="scala.Long" class="extype">Long</span></span>)</span><span class="result">: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Returns byte array of the Long value.</p><div class="fullcomment"><div class="comment cmt"><p>Returns byte array of the Long value.</p></div><dl class="paramcmts block"><dt class="param">l</dt><dd class="cmt"><p>the Long value</p></dd><dt>returns</dt><dd class="cmt"><p>the byte array
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.package" class="extype" href="package$.html">package</a></dd></dl></div>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.package#toBytes" data-isabs="false">
-      <a id="toBytes(Boolean):Array[Byte]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toBytes</span><span class="params">(<span name="b">b: <span name="scala.Boolean" class="extype">Boolean</span></span>)</span><span class="result">: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Returns byte array of the Boolean value.</p><div class="fullcomment"><div class="comment cmt"><p>Returns byte array of the Boolean value.</p></div><dl class="paramcmts block"><dt class="param">b</dt><dd class="cmt"><p>the Boolean value</p></dd><dt>returns</dt><dd class="cmt"><p>the byte array
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.package" class="extype" href="package$.html">package</a></dd></dl></div>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.package#toBytes" data-isabs="false">
-      <a id="toBytes(String):Array[Byte]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">toBytes</span><span class="params">(<span name="s">s: String</span>)</span><span class="result">: <span name="scala.Array" class="extype">Array</span>[<span name="scala.Byte" class="extype">Byte</span>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Returns byte array of the String value.</p><div class="fullcomment"><div class="comment cmt"><p>Returns byte array of the String value.</p></div><dl class="paramcmts block"><dt class="param">s</dt><dd class="cmt"><p>the String value</p></dd><dt>returns</dt><dd class="cmt"><p>the byte array
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.package" class="extype" href="package$.html">package</a></dd></dl></div>
-    </li><li visbl="pub" name="st.happy_camper.hbase.shell.package#using" data-isabs="false">
-      <a id="using[R&lt;:AnyRef { def close(): Unit }, A](R)((R) ⇒ A):A"></a>
+      <p class="shortcomment cmt">Returns BytesAsA instance.</p><div class="fullcomment"><div class="comment cmt"><p>Returns BytesAsA instance.</p></div><dl class="paramcmts block"><dt class="param">bytes</dt><dd class="cmt"><p>the byte array</p></dd><dt>returns</dt><dd class="cmt"><p>the instance
+</p></dd></dl></div>
+    </li><li name="st.happy_camper.hbase.shell.package#using" visbl="pub" data-isabs="false" fullComment="yes" group="No Group">
+      <a id="using[R&lt;:AnyRef{defclose():Unit},A](R)((R)⇒A):A"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">using</span><span class="tparams">[<span name="R">R &lt;: AnyRef { def close(): Unit }</span>, <span name="A">A</span>]</span><span class="params">(<span name="r">r: R</span>)</span><span class="params">(<span name="block">block: (R) ⇒ A</span>)</span><span class="result">: A</span>
+        <span class="name">using</span><span class="tparams">[<span name="R">R &lt;: <span class="extype" name="scala.AnyRef">AnyRef</span> { def close(): Unit }</span>, <span name="A">A</span>]</span><span class="params">(<span name="r">r: <span class="extype" name="st.happy_camper.hbase.shell.using.R">R</span></span>)</span><span class="params">(<span name="block">block: (<span class="extype" name="st.happy_camper.hbase.shell.using.R">R</span>) ⇒ <span class="extype" name="st.happy_camper.hbase.shell.using.A">A</span></span>)</span><span class="result">: <span class="extype" name="st.happy_camper.hbase.shell.using.A">A</span></span>
       </span>
       </h4>
       <p class="shortcomment cmt">Represents entry point of loan pattern.</p><div class="fullcomment"><div class="comment cmt"><p>Represents entry point of loan pattern.</p></div><dl class="paramcmts block"><dt class="param">r</dt><dd class="cmt"><p>the resource</p></dd><dt class="param">block</dt><dd class="cmt"><p>the code block to be run</p></dd><dt>returns</dt><dd class="cmt"><p>something returned by the block
-</p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="st.happy_camper.hbase.shell.package" class="extype" href="package$.html">package</a></dd></dl></div>
+</p></dd></dl></div>
     </li></ol>
             </div>
+
+        
 
         
         </div>
 
         <div id="inheritedMembers">
+        <div class="parent" name="scala.AnyRef">
+              <h3>Inherited from <span class="extype" name="scala.AnyRef">AnyRef</span></h3>
+            </div><div class="parent" name="scala.Any">
+              <h3>Inherited from <span class="extype" name="scala.Any">Any</span></h3>
+            </div>
         
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="No Group">
+              <h3>No Group</h3>
+              
+            </div>
         </div>
 
       </div>
