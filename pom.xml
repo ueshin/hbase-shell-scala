@@ -43,7 +43,7 @@
 	</issueManagement>
 
 	<properties>
-		<hadoop.version>1.0.3</hadoop.version>
+		<hadoop.version>2.7.0</hadoop.version>
 		<hbase.version>0.94.1</hbase.version>
 		<scala.version>2.10.0-M7</scala.version>
 		<scalaz.version>7.0.0-M3</scalaz.version>
